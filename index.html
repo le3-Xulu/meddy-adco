@@ -328,16 +328,30 @@
             padding: 8px; border-radius: 8px; text-align: center;
         }
 
-        /* INFORMATION ZONE VIDEO CONTAINER */
+        /* RESPONSIVE VIDEO CONTAINER STYLES (Supports HTML5 <video> & YouTube <iframe>) */
         .video-container {
-            width: 100%; position: relative; padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0; overflow: hidden; border-radius: 16px; border: 2px solid #008a9a;
-            margin-top: 8px; box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+            width: 100%; 
+            position: relative; 
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0; 
+            overflow: hidden; 
+            border-radius: 16px; 
+            border: 2px solid #008a9a;
+            margin-top: 8px; 
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
             background: #000;
         }
 
-        .video-container iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+        .video-container iframe,
+        .video-container video {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            border: 0;
+            border-radius: 14px;
+            object-fit: cover;
         }
 
         .info-badge {
@@ -398,7 +412,7 @@
         .switch-product-btn {
             width: 100%; padding: 9px 12px; border-radius: 12px; border: 1px solid #cbd5e1;
             background: #ffffff; font-size: 11.5px; font-weight: 700; color: #1e293b;
-            cursor: pointer; transition: all 0.2s ease; display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; transition: all 0.2s ease; display: flex; justify-between: space-between; align-items: center;
         }
 
         .switch-product-btn:hover { border-color: var(--brand-theme); background: #f8fafc; }
@@ -639,12 +653,13 @@
 
             infoZoneFeatures: [
                 {
-                    title: "🥄 How to Measure Dosage",
-                    speech: "📺 Watch this visual guide on using metric measuring spoons and oral syringes correctly to prevent under- or over-dosing paediatric medication.",
-                    card: `<div class="info-badge">📹 Instructional Video</div>
-                           <p style="font-size:12px; font-weight:600; margin-bottom:6px;">How to Measure Liquid Medicine Accurately</p>
+                    title: "🎬 How to Administer Panado",
+                    speech: "📺 Watch this 7-minute guide demonstrating step-by-step how to safely measure and administer Panado Paediatric Syrup to children.",
+                    card: `<div class="info-badge">📹 AI Video Demonstration</div>
+                           <p style="font-size:12px; font-weight:600; margin-bottom:6px;">Panado Administration Guide</p>
                            <div class="video-container">
-                               <iframe src="https://www.youtube-nocookie.com/embed/uOcpsXMJcJk?playsinline=1&rel=0" title="Measuring Liquid Medicine" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen playsinline></iframe>
+                               <!-- Note: Replace YOUR_YOUTUBE_ID_HERE with your YouTube Video ID after uploading -->
+                               <iframe src="https://www.youtube-nocookie.com/embed/sPuOihgKzoQ?playsinline=1&rel=0" title="Panado Administration Guide" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen playsinline></iframe>
                            </div>`
                 },
                 {
