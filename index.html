@@ -1,7 +1,1077 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta cha<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Meddy AI - Digital Health Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --brand-theme: #008a9a;
+            --brand-gradient: linear-gradient(135deg, #00BCD4 0%, #008A9A 100%);
+            --recomed-theme: #00c897;
+            --surface-glass: rgba(255, 255, 255, 0.95);
+            --surface-border: rgba(226, 232, 240, 0.8);
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --shadow-glow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        body {
+            background: #f8fafc;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 16px;
+        }
+
+        .workspace-grid {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .app-shell {
+            width: 100%;
+            max-width: 420px;
+            height: 860px;
+            max-height: 94vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 36px;
+            border: 1px solid var(--surface-border);
+            box-shadow: var(--shadow-glow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .app-header {
+            padding: 14px 18px 10px;
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .brand-pill { display: flex; align-items: center; gap: 10px; }
+        .brand-logo {
+            width: 36px; height: 36px;
+            background: var(--brand-gradient);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: 16px;
+        }
+
+        .brand-title { font-size: 13.5px; font-weight: 800; color: var(--text-primary); }
+        .brand-subtitle { font-size: 10px; font-weight: 700; color: var(--brand-theme); text-transform: uppercase; }
+
+        .ai-pill-tag {
+            background: #e0f2fe; color: #0369a1; padding: 4px 10px;
+            border-radius: 20px; font-size: 10px; font-weight: 800;
+        }
+
+        /* 2-COLUMN SEGMENT TOGGLE (Caregiver vs Information Zone) */
+        .segment-bar {
+            padding: 8px 16px; background: rgba(241, 245, 249, 0.9);
+            display: flex; gap: 8px; border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .segment-btn {
+            flex: 1; padding: 9px 6px; border: none; background: transparent;
+            border-radius: 12px; font-size: 12px; font-weight: 800;
+            color: var(--text-secondary); cursor: pointer; transition: all 0.2s ease;
+        }
+
+        .segment-btn.active { background: #ffffff; color: var(--brand-theme); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+        .main-stage {
+            flex: 1; padding: 14px 18px; overflow-y: auto;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .character-viewport { margin: 2px 0 8px; position: relative; display: flex; flex-direction: column; align-items: center; }
+        .character-svg {
+            width: 75px; height: 75px;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
+            animation: characterFloat 3.5s ease-in-out infinite;
+        }
+
+        @keyframes characterFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
+        .eye-blink { animation: blinkEyes 4s infinite; transform-origin: center; }
+        @keyframes blinkEyes { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
+
+        /* AUDIO PLAYER BUTTON */
+        .audio-speak-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 6px 14px;
+            background: #ffffff;
+            border: 1px solid var(--brand-theme);
+            color: var(--brand-theme);
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+        .audio-speak-btn:hover {
+            background: var(--brand-theme);
+            color: #ffffff;
+        }
+        .audio-speak-btn.speaking {
+            background: #ef4444;
+            color: #ffffff;
+            border-color: #ef4444;
+            animation: pulseGlow 1.5s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* SCROLLABLE NAV TABS */
+        .feature-nav-scroll {
+            width: 100%; 
+            display: flex; 
+            gap: 8px; 
+            overflow-x: auto;
+            overflow-y: visible;
+            white-space: nowrap;
+            padding: 8px 4px 12px 4px; 
+            margin-bottom: 4px; 
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .feature-nav-scroll::-webkit-scrollbar { display: none; }
+
+        .feature-nav-btn {
+            white-space: nowrap; 
+            padding: 8px 16px; 
+            border-radius: 16px;
+            background: #ffffff; 
+            border: 1px solid #cbd5e1; 
+            font-size: 11.5px;
+            font-weight: 700; 
+            color: var(--text-secondary); 
+            cursor: pointer; 
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+            height: 36px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
+        }
+
+        .feature-nav-btn.active { 
+            background: var(--brand-theme); 
+            color: white; 
+            border-color: var(--brand-theme); 
+            box-shadow: 0 4px 10px rgba(0, 138, 154, 0.25);
+        }
+
+        .feature-nav-btn.recomed-tab {
+            border-color: #00c897;
+            color: #00a87e;
+            background: #f0fdf4;
+        }
+
+        .feature-nav-btn.recomed-tab.active {
+            background: #00c897;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 200, 151, 0.3);
+        }
+
+        .speech-card {
+            width: 100%; background: var(--surface-glass); border: 1px solid var(--surface-border);
+            border-radius: 18px; padding: 12px 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.03);
+            margin-bottom: 10px; text-align: left;
+        }
+
+        .speech-text { font-size: 12.5px; line-height: 1.5; color: var(--text-primary); }
+
+        .info-card {
+            width: 100%; background: #ffffff; border: 1px solid #e2e8f0;
+            border-radius: 18px; padding: 12px 14px; margin-bottom: 10px; text-align: left;
+        }
+
+        .info-card-title {
+            font-size: 10px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 6px;
+        }
+
+        /* PIL EXTERNAL LINK BUTTON */
+        .pil-link-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #0f172a;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .pil-link-btn:hover {
+            background: var(--brand-theme);
+            color: #ffffff;
+            border-color: var(--brand-theme);
+        }
+
+        /* RECOMED SEGUE STYLES */
+        .recomed-banner {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 14px;
+            padding: 12px;
+            margin-top: 8px;
+        }
+
+        .recomed-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: var(--recomed-theme);
+            color: #ffffff;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 200, 151, 0.25);
+            transition: all 0.2s ease;
+        }
+        .recomed-btn:hover {
+            background: #00a87e;
+            transform: translateY(-1px);
+        }
+
+        .recomed-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .recomed-chip {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: #0f172a;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .recomed-chip:hover {
+            border-color: var(--recomed-theme);
+            background: #f0fdf4;
+            color: #008a9a;
+        }
+
+        .dose-calc-box {
+            background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px;
+            padding: 10px; margin-top: 6px; display: flex; flex-direction: column; gap: 6px;
+        }
+
+        .dose-select {
+            padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1;
+            font-size: 11.5px; font-weight: 600; outline: none; background: white;
+        }
+
+        .dose-result {
+            font-size: 11.5px; font-weight: 700; color: #008a9a; background: #e0f2fe;
+            padding: 8px; border-radius: 8px; text-align: center;
+        }
+
+        /* RESPONSIVE VIDEO CONTAINER STYLES */
+        .video-container {
+            width: 100%; 
+            position: relative; 
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0; 
+            overflow: hidden; 
+            border-radius: 16px; 
+            border: 2px solid #008a9a;
+            margin-top: 8px; 
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+            background: #000;
+        }
+
+        .video-container iframe,
+        .video-container video {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            border: 0;
+            border-radius: 14px;
+            object-fit: cover;
+        }
+
+        .info-badge {
+            background: #e0f2fe; color: #0369a1; padding: 5px 10px; border-radius: 20px;
+            font-size: 10.5px; font-weight: 800; text-align: center; margin-bottom: 6px; display: inline-block;
+        }
+
+        .disclaimer-banner {
+            font-size: 10px; color: #64748b; background: #f1f5f9; border-radius: 10px;
+            padding: 6px 10px; margin-top: 4px; text-align: center; border: 1px dashed #cbd5e1;
+        }
+
+        .app-footer {
+            padding: 10px 14px; background: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid rgba(226, 232, 240, 0.8); display: flex; gap: 8px; align-items: center;
+        }
+
+        .lang-select {
+            background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 14px;
+            padding: 8px 6px; font-size: 11px; font-weight: 700; color: var(--text-primary); outline: none;
+        }
+
+        .chat-input {
+            flex: 1; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 20px;
+            padding: 8px 12px; font-size: 12px; outline: none;
+        }
+
+        .send-btn {
+            background: var(--brand-gradient); border: none; color: white;
+            width: 34px; height: 34px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
+        }
+
+        /* PACKAGING & REAL QR GENERATOR PANEL */
+        .packaging-simulator {
+            width: 100%; max-width: 420px; background: #ffffff;
+            border: 1px solid #e2e8f0; border-radius: 24px; padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex;
+            flex-direction: column; gap: 12px;
+        }
+
+        .pack-title { font-size: 14px; font-weight: 800; color: #0f172a; }
+        .pack-desc { font-size: 11.5px; color: #64748b; line-height: 1.4; }
+
+        .host-url-input {
+            width: 100%; padding: 8px 10px; border-radius: 8px;
+            border: 1px solid #cbd5e1; font-size: 11px; outline: none;
+        }
+
+        .qr-display-card {
+            background: #f8fafc; border: 2px dashed #cbd5e1;
+            border-radius: 16px; padding: 14px; text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+        }
+
+        .qr-image { width: 140px; height: 140px; border-radius: 8px; }
+
+        .switch-product-btn {
+            width: 100%; padding: 9px 12px; border-radius: 12px; border: 1px solid #cbd5e1;
+            background: #ffffff; font-size: 11.5px; font-weight: 700; color: #1e293b;
+            cursor: pointer; transition: all 0.2s ease; display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .switch-product-btn:hover { border-color: var(--brand-theme); background: #f8fafc; }
+    </style>
+</head>
+<body>
+
+<div class="workspace-grid">
+    <!-- MOBILE / TABLET APP CONTAINER -->
+    <div class="app-shell">
+        <div class="app-header">
+            <div class="brand-pill">
+                <div class="brand-logo">M</div>
+                <div>
+                    <div class="brand-title" id="brandTitle">Panado® Paediatric</div>
+                    <div class="brand-subtitle" id="medTagDisplay">Adcock Ingram Companion</div>
+                </div>
+            </div>
+            <div class="ai-pill-tag">PIL VERIFIED</div>
+        </div>
+
+        <!-- 2-TAB SEGMENT TOGGLE -->
+        <div class="segment-bar">
+            <button class="segment-btn active" id="segCaregiver" onclick="setSegment('caregiver')">👨‍👩‍👧 Caregiver View</button>
+            <button class="segment-btn" id="segInfoZone" onclick="setSegment('infoZone')">🎬 Information Zone</button>
+        </div>
+
+        <div class="main-stage">
+            <div class="character-viewport">
+                <svg class="character-svg" viewBox="0 0 120 120" fill="none">
+                    <path id="pillCap" d="M60 10C37.9 10 20 27.9 20 50V60H100V50C100 27.9 82.1 10 60 10Z" fill="#00BCD4"/>
+                    <path d="M20 60V70C20 92.1 37.9 110 60 110C82.1 110 100 92.1 100 70V60H20Z" fill="#F1F5F9"/>
+                    <rect id="pillBand" x="20" y="57" width="80" height="6" fill="#008A9A"/>
+                    <g class="eye-blink">
+                        <circle cx="46" cy="42" r="5" fill="#1E293B"/>
+                        <circle cx="74" cy="42" r="5" fill="#1E293B"/>
+                        <circle cx="48" cy="40" r="1.8" fill="white"/>
+                        <circle cx="76" cy="40" r="1.8" fill="white"/>
+                    </g>
+                    <path d="M50 49C50 49 55 54 60 54C65 54 70 49 70 49" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+                <!-- SPEECH AUDIO CONTROLLER -->
+                <button class="audio-speak-btn" id="audioBtn" onclick="toggleAudioSpeech()">
+                    <span id="audioBtnIcon">🔊</span> <span id="audioBtnText">Listen to Meddy</span>
+                </button>
+            </div>
+
+            <!-- DYNAMIC CONTENT AREA -->
+            <div id="navigationTabs" class="feature-nav-scroll"></div>
+            <div class="speech-card"><div class="speech-text" id="speechText"></div></div>
+            <div class="info-card" id="infoCard"></div>
+
+            <div class="disclaimer-banner">
+                ℹ️ Meddy complements SAHPRA approved Patient Information Leaflets. For severe symptoms, easily transition to RecoMed to consult a doctor.
+            </div>
+        </div>
+
+        <div class="app-footer" id="appFooter">
+            <select class="lang-select" id="langSelect" onchange="onLanguageChange()">
+                <option value="en">🇬🇧 English</option>
+                <option value="zu">🇿🇦 isiZulu</option>
+                <option value="af">🇿🇦 Afrikaans</option>
+            </select>
+            <input type="text" class="chat-input" id="chatInput" placeholder="Ask Meddy or type symptoms..." onkeypress="handleKey(event)">
+            <button class="send-btn" onclick="askMeddy()">➤</button>
+        </div>
+    </div>
+
+    <!-- PACKAGING & REAL QR GENERATOR PANEL -->
+    <div class="packaging-simulator">
+        <div class="pack-title">📦 Adcock Ingram Packaging QR Generator</div>
+        <div class="pack-desc">
+            Enter your deployed GitHub URL below to generate phone-scannable QR codes:
+        </div>
+
+        <input type="text" class="host-url-input" id="customHostInput" placeholder="https://yourname.github.io/meddy/" oninput="updateQrTargetUrl()">
+        
+        <div class="qr-display-card">
+            <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary);" id="qrLabel">Scannable QR Code</div>
+            <img class="qr-image" id="qrCodeImg" src="" alt="Adcock Ingram Product QR Code">
+            <div style="font-size: 10px; color: #94a3b8; word-break: break-all;" id="qrTargetUrl">Target URL: --</div>
+        </div>
+
+        <div style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase;">Switch Product View & QR:</div>
+
+        <button class="switch-product-btn" onclick="switchProduct('PANADO')">
+            <span>🍓 <strong>Panado® Paediatric Syrup (Strawberry)</strong><br><small style="color:#64748b;">Analgesic & Antipyretic (Paracetamol 120mg/5mL)</small></span>
+            <span style="color:#008a9a;">Select ›</span>
+        </button>
+
+        <button class="switch-product-btn" onclick="switchProduct('ALLERGEX')">
+            <span>🌼 <strong>Allergex® Non Drowsy Syrup</strong><br><small style="color:#64748b;">Antihistamine (Loratadine 5mg/5mL)</small></span>
+            <span style="color:#d97706;">Select ›</span>
+        </button>
+    </div>
+</div>
+
+<script>
+    // Shared RecoMed Segue Component
+    const recomedCardTemplate = `
+        <div class="info-card-title" style="color: #00a87e;">🏥 Need Clinical Care? (RecoMed Integration)</div>
+        <p style="font-size: 12px; line-height: 1.4; color: #334155;">
+            If symptoms persist, worsen, or require immediate medical evaluation, book an online or in-person consultation with a nearby healthcare provider.
+        </p>
+        
+        <div class="recomed-grid">
+            <a href="https://www.recomed.co.za/general-practitioner/" target="_blank" class="recomed-chip">
+                <span style="font-size: 16px;">🩺</span>
+                <span>General Practitioner</span>
+            </a>
+            <a href="https://www.recomed.co.za/" target="_blank" class="recomed-chip">
+                <span style="font-size: 16px;">💻</span>
+                <span>Virtual Consult</span>
+            </a>
+            <a href="https://www.recomed.co.za/" target="_blank" class="recomed-chip">
+                <span style="font-size: 16px;">🏥</span>
+                <span>Clinic / Pharmacy</span>
+            </a>
+            <a href="https://www.recomed.co.za/" target="_blank" class="recomed-chip">
+                <span style="font-size: 16px;">🤢</span>
+                <span>Stomach Bug</span>
+            </a>
+            <a href="https://www.recomed.co.za/" target="_blank" class="recomed-chip">
+                <span style="font-size: 16px;">📄</span>
+                <span>Sick Note</span>
+            </a>
+            <a href="https://www.recomed.co.za/dentist/" target="_blank" class="recomed-chip">
+                <span style="font-size: 16px;">🦷</span>
+                <span>Dentist</span>
+            </a>
+        </div>
+
+        <a class="recomed-btn" href="https://www.recomed.co.za/" target="_blank" rel="noopener">
+            🔍 Find Nearby Doctors on RecoMed ›
+        </a>
+    `;
+
+    // Multi-language Translations for Meddy's Dialogue
+    const translations = {
+        PANADO: {
+            en: {
+                f1_speech: "👋 You scanned <strong>Panado® Paediatric Syrup Strawberry</strong>. It contains Paracetamol (120 mg/5 mL) for symptomatic relief of mild to moderate pain and fever in children.",
+                f2_speech: "🥄 <strong>Dosing Guide:</strong> Dosage is based on child age/weight. 3–12 months: 2.5–5 mL; 1–5 years: 5–10 mL; 6–12 years: 10–20 mL. Always administer using a metric oral syringe or medicine measure.",
+                f3_speech: "⏱️ Repeat every 4 hours if needed. <strong>MAX 4 doses per 24 hours.</strong> Do NOT use continuously for more than 5 days without consulting a doctor.",
+                f4_speech: "❄️ Store at or below 25°C protected from light. Keep well closed in original outer container. Do not refrigerate or freeze.",
+                f5_speech: "🩺 <strong>Need a Doctor?</strong> If symptoms are severe or persist beyond 5 days, use our RecoMed integration to quickly find and book a healthcare practitioner near you."
+            },
+            zu: {
+                f1_speech: "👋 Uskani <strong>Panado® Paediatric Syrup Strawberry</strong>. Ine-Paracetamol (120 mg/5 mL) yokusiza ukulawula ubuhlungu nomkhuhlane ezinganeni.",
+                f2_speech: "🥄 <strong>Umhlahlandlela Womthamo:</strong> Ezinyangeni ezi-3-12: 2.5–5 mL; iminyaka e-1-5: 5–10 mL; iminyaka e-6-12: 10–20 mL. Sebenzisa isiringi yomlomo noma inkomishi yemithi.",
+                f3_speech: "⏱️ Phinda ngemuva kwamahora ayi-4 uma kudingeka. <strong>Izinga eliphakeme imithamo emi-4 emahoreni angama-24.</strong> Ungasebenzisi izinsuku ezingaphezu kwezi-5 ngaphandle kokubona udokotela.",
+                f4_speech: "❄️ Gcina ezingeni lokushisa elingaphansi kuka-25°C ebumnyameni. Ungasifaki esiqandisini noma usimbandezise.",
+                f5_speech: "🩺 <strong>Udinga Udokotela?</strong> Uma izimpawu ziba rimbi noma ziyaqhubeka ngemuva kwezinsuku ezi-5, sebenzisa u-RecoMed ukuthola udokotela eduze nawe."
+            },
+            af: {
+                f1_speech: "👋 Jy het <strong>Panado® Paediatric Syrup Strawberry</strong> geskandeer. Dit bevat Parasetamol (120 mg/5 mL) vir verligting van ligte tot matige pyn en koors by kinders.",
+                f2_speech: "🥄 <strong>Doseringsgids:</strong> 3–12 maande: 2.5–5 mL; 1–5 jaar: 5–10 mL; 6–12 jaar: 10–20 mL. Gebruik altyd 'n metriese spuit of maatkoppie.",
+                f3_speech: "⏱️ Herhaal elke 4 uur indien nodig. <strong>Maksimum 4 dosisse per 24 uur.</strong> Moenie langer as 5 dae aaneenlopend gebruik sonder om 'n dokter te raadpleeg nie.",
+                f4_speech: "❄️ Bêre by of onder 25°C beskerm teen lig. Hou goed toegemaak. Moenie verkoel of vries nie.",
+                f5_speech: "🩺 <strong>Het jy 'n Dokter Nodig?</strong> As simptome vererger of langer as 5 dae voortduur, gebruik RecoMed om vinnig 'n dokter naby jou te vind."
+            }
+        },
+        ALLERGEX: {
+            en: {
+                f1_speech: "👋 You scanned <strong>Allergex® Non Drowsy Syrup</strong>. Contains Loratadine (5 mg/5 mL) to relieve allergic symptoms like runny nose, sneezing, watery eyes, and itchy skin conditions (urticaria).",
+                f2_speech: "🥄 <strong>Approved Dosing:</strong><br>• Children 2 to 5 years: 5 mL once daily.<br>• Children 6 to 12 years & Adults: 10 mL once daily.<br>🚫 Do NOT give to children under 2 years.",
+                f3_speech: "⚠️ <strong>Safety Precautions:</strong> Non-drowsy for most, though some individuals may feel mild sedation. Contains sucrose (1000mg/5mL) and sodium benzoate.",
+                f4_speech: "🩺 <strong>Severe Allergy or Breathing Trouble?</strong> If symptoms worsen or persist after 14 days, consult a healthcare provider via RecoMed."
+            },
+            zu: {
+                f1_speech: "👋 Uskani <strong>Allergex® Non Drowsy Syrup</strong>. Ine-Loratadine (5 mg/5 mL) yokusiza ukulawula ukungezwani nokudla, amakhala agijimayo, nokulunywa komzimba.",
+                f2_speech: "🥄 <strong>Umthamo Ovunyelwe:</strong><br>• Izingane zeminyaka e-2 kuya ku-5: 5 mL kanye ngosuku.<br>• Izingane ezi-6+ nabadala: 10 mL kanye ngosuku.<br>🚫 Ungayiniki ingane engaphansi kweminyaka e-2.",
+                f3_speech: "⚠️ <strong>Isexwayiso Sokuqapha:</strong> Ayilethi ubuthongo kweningi, kodwa abanye bangasizwa kancane. Ine-sucrose ne-sodium benzoate.",
+                f4_speech: "🩺 <strong>Ufuna Udokotela Ngokushesha?</strong> Uma izimpawu ziqhubeka ngemuva kwezinsuku ezi-14, sebenzisa u-RecoMed ukuthola udokotela."
+            },
+            af: {
+                f1_speech: "👋 Jy het <strong>Allergex® Non Drowsy Syrup</strong> geskandeer. Bevat Loratadien (5 mg/5 mL) vir die verligting van allergieë, hooikoors en jeukerige veltoestande.",
+                f2_speech: "🥄 <strong>Goedgekeurde Dosis:</strong><br>• Kinders 2 tot 5 jaar: 5 mL een keer per dag.<br>• Kinders 6 tot 12 jaar & Volwassenes: 10 mL een keer per dag.<br>🚫 Moenie vir kinders under 2 jaar gee nie.",
+                f3_speech: "⚠️ <strong>Veiligheidswaarskuwing:</strong> Veroorsaak gewoonlik nie lomerigheid nie. Bevat sukrose (1000mg/5mL) en natriumbensoaat.",
+                f4_speech: "🩺 <strong>Ernstige Allergie?</strong> As simptome na 14 dae nie verbeter nie, bespreek 'n dokter via RecoMed."
+            }
+        }
+    };
+
+    const productCatalogue = {
+        PANADO: {
+            brandName: "Panado® Paediatric Syrup",
+            subtitle: "Adcock Ingram - Paracetamol 120mg/5mL (Strawberry)",
+            themeColor: "#00bcd4",
+            themeGradient: "linear-gradient(135deg, #00d2ff 0%, #008a9a 100%)",
+            capColor: "#00BCD4",
+            bandColor: "#008A9A",
+            
+            caregiverFeatures: [
+                {
+                    title: "1. Overview",
+                    speechKey: "f1_speech",
+                    card: `<div class="info-card-title">1. What is this medicine used for?</div>
+                           <p style="font-size:12px; line-height:1.4;">Clear, dark pink syrup with a strawberry odour and taste. Used for symptomatic treatment of mild to moderate pain and fever. See a doctor if symptoms worsen or do not improve after 5 days.</p>
+                           <a class="pil-link-btn" href="PIL-2025739-Panado-Strawberry_TG (1).pdf" target="_blank" rel="noopener">📄 SAHPRA approved Patient Information Leaflet</a>`
+                },
+                {
+                    title: "2. Age & Dosage Guide",
+                    speechKey: "f2_speech",
+                    card: `<div class="info-card-title">2. Approved Age & Dosage Calculator</div>
+                           <div class="dose-calc-box">
+                               <select class="dose-select" id="doseWeightSelect" onchange="calculatePanadoDose()">
+                                   <option value="">-- Choose Child Age Bracket --</option>
+                                   <option value="infant">3 months to 1 year (2.5 mL - 5 mL)</option>
+                                   <option value="child1">1 to 5 years (5 mL - 10 mL)</option>
+                                   <option value="child2">6 to 12 years (10 mL - 20 mL)</option>
+                               </select>
+                               <div class="dose-result" id="doseResultText">Select age bracket to view approved dose</div>
+                           </div>
+                           <a class="pil-link-btn" href="PIL-2025739-Panado-Strawberry_TG (1).pdf" target="_blank" rel="noopener">📄 SAHPRA approved Patient Information Leaflet</a>`
+                },
+                {
+                    title: "3. Safety Warnings",
+                    speechKey: "f3_speech",
+                    card: `<div class="info-card-title">3. Critical Safety Warnings</div>
+                           <p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>⚠️ Paracetamol Overdose Warning:</strong> Contains paracetamol which can cause severe liver damage in overdose. Do not combine with other paracetamol-containing medicines. Do not use continuously for more than 5 days without consulting a doctor.</p>
+                           <a class="pil-link-btn" href="PIL-2025739-Panado-Strawberry_TG (1).pdf" target="_blank" rel="noopener">📄 SAHPRA approved Patient Information Leaflet</a>`
+                },
+                {
+                    title: "4. Storage & Ingredients",
+                    speechKey: "f4_speech",
+                    card: `<div class="info-card-title">4. Storage & Special Excipients</div>
+                           <p style="font-size:12px; line-height:1.4;">Store at or below 25°C protected from light. Do not refrigerate or freeze. Sugar-free and Tartrazine-free. Contains Sorbitol (280mg/5mL), Propylene Glycol (80mg/5mL), and Sodium Benzoate (16.5mg/5mL).</p>
+                           <a class="pil-link-btn" href="PIL-2025739-Panado-Strawberry_TG (1).pdf" target="_blank" rel="noopener">📄 SAHPRA approved Patient Information Leaflet</a>`
+                },
+                {
+                    title: "🏥 Find a Doctor",
+                    speechKey: "f5_speech",
+                    isRecomed: true,
+                    card: recomedCardTemplate
+                }
+            ],
+
+            infoZoneFeatures: [
+                {
+                    title: "🎬 How to Administer Panado",
+                    speech: "📺 Watch this 7-minute guide demonstrating step-by-step how to safely measure and administer Panado Paediatric Syrup to children.",
+                    card: `<div class="info-badge">📹 AI Video Demonstration</div>
+                           <p style="font-size:12px; font-weight:600; margin-bottom:6px;">Panado Administration Guide</p>
+                           <div class="video-container">
+                               <iframe src="https://www.youtube-nocookie.com/embed/sPuOihgKzoQ?playsinline=1&rel=0" title="Panado Administration Guide" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen playsinline></iframe>
+                           </div>`
+                }
+            ],
+
+            qa: [
+                { 
+                    key: ["5 year", "5-year", "5 years", "1 to 5", "1-5", "4 year", "3 year", "2 year", "toddler"], 
+                    answer: "⚖️ <strong>Approved PIL Dosage for 1–5 Years:</strong><br>Give <strong>5 mL to 10 mL</strong> (1 to 2 medicine measures) every 4 hours as needed.<br>⚠️ Do NOT exceed 4 doses in 24 hours." 
+                },
+                { 
+                    key: ["3 month", "6 month", "infant", "baby", "under 1"], 
+                    answer: "⚖️ <strong>Approved PIL Dosage for 3 Months to 1 Year:</strong><br>Give <strong>2.5 mL to 5 mL</strong> (1/2 to 1 medicine measure) every 4 hours as needed.<br>⚠️ Do NOT exceed 4 doses in 24 hours." 
+                },
+                { 
+                    key: ["6 year", "7 year", "8 year", "9 year", "10 year", "11 year", "12 year", "older child"], 
+                    answer: "⚖️ <strong>Approved PIL Dosage for 6–12 Years:</strong><br>Give <strong>10 mL to 20 mL</strong> (2 to 4 medicine measures) every 4 hours as needed.<br>⚠️ Do NOT exceed 4 doses in 24 hours." 
+                },
+                { 
+                    key: ["cough", "coughing", "chest", "flu", "cold"], 
+                    answer: "🫁 <strong>PIL Guidance on Coughing & Colds:</strong><br>Panado Paediatric Syrup treats the <strong>fever, body aches, sore throat, or discomfort</strong> associated with colds and flu. However, it is an antipyretic/analgesic (paracetamol) and is NOT a direct cough suppressant. If coughing persists, consult a healthcare professional." 
+                },
+                { 
+                    key: ["fever", "temp", "temperature", "hot"], 
+                    answer: "🌡️ <strong>PIL Guidance on Fever:</strong><br>Panado is indicated for symptomatic relief of fever. Administer the recommended age dose every 4 hours as needed. Ensure adequate fluid intake. Consult a doctor if fever lasts longer than 5 days." 
+                },
+                { 
+                    key: ["dose", "how much", "spoon", "measure", "amount", "dosage"], 
+                    answer: "⚖️ <strong>Panado Dosing Guide (PIL Approved):</strong><br>• <strong>3 mos – 1 yr:</strong> 2.5 mL to 5 mL<br>• <strong>1 yr – 5 yrs:</strong> 5 mL to 10 mL<br>• <strong>6 yrs – 12 yrs:</strong> 10 mL to 20 mL<br>Repeat every 4 hours if needed. Max 4 doses in 24 hours." 
+                },
+                { 
+                    key: ["sugar", "tartrazine", "sweetener", "ingredient", "active"], 
+                    answer: "🍬 <strong>Ingredients & Excipients:</strong><br>Active ingredient: Paracetamol 120 mg per 5 mL.<br>Panado Strawberry is <strong>Sugar-Free & Tartrazine-Free</strong>. Contains sorbitol (280 mg/5 mL) and sodium benzoate." 
+                },
+                { 
+                    key: ["side effect", "reaction", "allergy", "rash", "danger", "warning", "overdose"], 
+                    answer: "⚠️ <strong>Safety & Overdose Warnings:</strong><br>Contains paracetamol. Overdosage can cause severe liver damage. Stop use and seek immediate medical attention if skin rash, swelling, or allergic reaction occurs." 
+                },
+                { 
+                    key: ["pil", "leaflet", "pdf", "document", "paper"], 
+                    answer: "📄 You can open the official SAHPRA approved Patient Information Leaflet directly using the button inside the information cards above!" 
+                }
+            ]
+        },
+
+        ALLERGEX: {
+            brandName: "Allergex® Non Drowsy Syrup",
+            subtitle: "Adcock Ingram - Loratadine 5mg/5mL",
+            themeColor: "#d97706",
+            themeGradient: "linear-gradient(135deg, #f59e0b 0%, #b45309 100%)",
+            capColor: "#f59e0b",
+            bandColor: "#b45309",
+
+            caregiverFeatures: [
+                {
+                    title: "1. Indications",
+                    speechKey: "f1_speech",
+                    card: `<div class="info-card-title">1. What is Allergex Non Drowsy Syrup used for?</div>
+                           <p style="font-size:12px; line-height:1.4;">Clear, colourless solution with a peach odour. Used to relieve allergy symptoms such as runny/blocked nose, sneezing, watery eyes (hay fever), and allergic skin conditions like urticaria (hives).</p>
+                           <a class="pil-link-btn" href="ALLERGEX-NON-DROWSY-SYRUP-360008-0008-1.3.2-PIL-Approved.pdf" target="_blank" rel="noopener">📄 SAHPRA approved Patient Information Leaflet</a>`
+                },
+                {
+                    title: "2. Dosage Guidelines",
+                    speechKey: "f2_speech",
+                    card: `<div class="info-card-title">2. Approved Age & Dosage Calculator</div>
+                           <div class="dose-calc-box">
+                               <select class="dose-select" id="allergexDoseSelect" onchange="calculateAllergexDose()">
+                                   <option value="">-- Choose Age Bracket --</option>
+                                   <option value="under2">Under 2 years (NOT recommended)</option>
+                                   <option value="child1">Children 2 to 5 years (5 mL once daily)</option>
+                                   <option value="child2">Children 6 to 12 years (10 mL once daily)</option>
+                                   <option value="adult">Adults & Children 12+ (10 mL once daily)</option>
+                               </select>
+                               <div class="dose-result" id="allergexDoseResult">Select age bracket to view approved dose</div>
+                           </div>
+                           <p style="font-size:11px; color:#b91c1c; margin-top:6px;"><strong>🚫 Age Contraindication:</strong> Do not give to children under 2 years of age.</p>
+                           <a class="pil-link-btn" href="ALLERGEX-NON-DROWSY-SYRUP-360008-0008-1.3.2-PIL-Approved.pdf" target="_blank" rel="noopener">📄 SAHPRA approved Patient Information Leaflet</a>`
+                },
+                {
+                    title: "3. Safety & Warnings",
+                    speechKey: "f3_speech",
+                    card: `<div class="info-card-title">3. Safety Precautions & Excipients</div>
+                           <p style="font-size:12px; line-height:1.4;">Contains Sucrose (1000mg/5mL) - use caution in diabetes mellitus. Contains Propylene Glycol (300mg/5mL) and Sodium Benzoate. Non-drowsy, but a small number of individuals may experience mild sedation.</p>
+                           <a class="pil-link-btn" href="ALLERGEX-NON-DROWSY-SYRUP-360008-0008-1.3.2-PIL-Approved.pdf" target="_blank" rel="noopener">📄 SAHPRA approved Patient Information Leaflet</a>`
+                },
+                {
+                    title: "🏥 Find a Doctor",
+                    speechKey: "f4_speech",
+                    isRecomed: true,
+                    card: recomedCardTemplate
+                }
+            ],
+
+            infoZoneFeatures: [
+                {
+                    title: "🌼 Understanding Allergies",
+                    speech: "🎥 Watch this video demonstrating how non-drowsy antihistamines relieve hay fever, sneezing, and skin rashes.",
+                    card: `<div class="info-badge">🌼 Allergy Demonstration</div>
+                           <p style="font-size:12px; font-weight:600; margin-bottom:6px;">How Antihistamines Block Allergies</p>
+                           <div class="video-container">
+                               <iframe src="https://www.youtube-nocookie.com/embed/sM3FDsMAMdc?playsinline=1&rel=0" title="How Antihistamines Work" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen playsinline></iframe>
+                           </div>`
+                }
+            ],
+
+            qa: [
+                { 
+                    key: ["drowsy", "sleep", "tired", "sedation"], 
+                    answer: "😴 <strong>Drowsiness PIL Guidance:</strong><br>Allergex Non Drowsy Syrup contains Loratadine, which lacks significant sedative properties at recommended doses. However, a small percentage of people may experience mild drowsiness." 
+                },
+                { 
+                    key: ["under 2", "baby", "toddler", "1 year", "infant"], 
+                    answer: "🚫 <strong>Age Contraindication:</strong><br>Allergex Non Drowsy Syrup is <strong>NOT recommended for children under 2 years of age</strong> according to SAHPRA approved PIL guidance." 
+                },
+                { 
+                    key: ["dose", "how much", "amount", "spoon", "measure", "usage"], 
+                    answer: "🥄 <strong>Allergex Non Drowsy Dosing Guide:</strong><br>• <strong>Children 2–5 yrs:</strong> 5 mL once daily.<br>• <strong>Children 6–12 yrs & Adults:</strong> 10 mL once daily.<br>🚫 Do not give to children under 2 years." 
+                },
+                { 
+                    key: ["allergy", "rash", "hives", "sneeze", "itch", "hay fever", "runny nose"], 
+                    answer: "🌼 <strong>Indications:</strong><br>Indicated for symptomatic relief of allergic rhinitis (sneezing, runny nose, itching) and chronic urticaria (allergic skin rashes/hives)." 
+                },
+                { 
+                    key: ["sugar", "sucrose", "diabetes", "ingredient"], 
+                    answer: "🍬 <strong>Excipient Warning:</strong><br>Active ingredient: Loratadine 5 mg per 5 mL.<br>Contains <strong>Sucrose (1000 mg per 5 mL)</strong>. Patients with diabetes mellitus should take this into consideration." 
+                },
+                { 
+                    key: ["pil", "leaflet", "pdf", "document"], 
+                    answer: "📄 You can open the official SAHPRA approved Patient Information Leaflet directly using the button in the information cards above!" 
+                }
+            ]
+        }
+    };
+
+    let activeProductKey = "PANADO";
+    let currentSegment = 'caregiver'; 
+    let activeFeatureIndex = 0;
+    let selectedLang = 'en';
+    let isSpeaking = false;
+    let availableVoices = [];
+
+    // Load voices and pick warm, natural-sounding voice profiles
+    function loadVoices() {
+        if ('speechSynthesis' in window) {
+            availableVoices = window.speechSynthesis.getVoices();
+        }
+    }
+
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+        loadVoices();
+    }
+
+    function getBestVoiceForLang(langCode) {
+        if (!availableVoices || availableVoices.length === 0) loadVoices();
+
+        const langMap = {
+            'en': ['en-ZA', 'en-GB', 'en-US', 'en'],
+            'zu': ['zu-ZA', 'zu', 'en-ZA'],
+            'af': ['af-ZA', 'af', 'nl-NL']
+        };
+
+        const preferredLangs = langMap[langCode] || ['en'];
+
+        for (let l of preferredLangs) {
+            let match = availableVoices.find(v => v.lang.replace('_','-').includes(l) && (v.name.includes('Natural') || v.name.includes('Neural') || v.name.includes('Google') || v.name.includes('Premium')));
+            if (match) return match;
+
+            match = availableVoices.find(v => v.lang.replace('_','-').includes(l));
+            if (match) return match;
+        }
+
+        return availableVoices[0] || null;
+    }
+
+    function toggleAudioSpeech() {
+        if (!('speechSynthesis' in window)) {
+            alert('Audio speech is not supported on this browser.');
+            return;
+        }
+
+        if (isSpeaking) {
+            window.speechSynthesis.cancel();
+            updateAudioButtonState(false);
+            return;
+        }
+
+        const rawText = document.getElementById('speechText').innerText || "";
+        if (!rawText) return;
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(rawText);
+        
+        const chosenVoice = getBestVoiceForLang(selectedLang);
+        if (chosenVoice) {
+            utterance.voice = chosenVoice;
+            utterance.lang = chosenVoice.lang;
+        } else {
+            utterance.lang = selectedLang === 'zu' ? 'zu-ZA' : (selectedLang === 'af' ? 'af-ZA' : 'en-ZA');
+        }
+
+        utterance.rate = 0.95; 
+        utterance.pitch = 1.05; 
+
+        utterance.onstart = () => updateAudioButtonState(true);
+        utterance.onend = () => updateAudioButtonState(false);
+        utterance.onerror = () => updateAudioButtonState(false);
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function updateAudioButtonState(speaking) {
+        isSpeaking = speaking;
+        const btn = document.getElementById('audioBtn');
+        const icon = document.getElementById('audioBtnIcon');
+        const text = document.getElementById('audioBtnText');
+
+        if (speaking) {
+            btn.classList.add('speaking');
+            icon.innerText = "⏹️";
+            text.innerText = "Stop Meddy Talking";
+        } else {
+            btn.classList.remove('speaking');
+            icon.innerText = "🔊";
+            text.innerText = "Listen to Meddy";
+        }
+    }
+
+    function onLanguageChange() {
+        selectedLang = document.getElementById('langSelect').value;
+        if (isSpeaking) {
+            window.speechSynthesis.cancel();
+            updateAudioButtonState(false);
+        }
+        renderFeatureContent();
+    }
+
+    function initFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productParam = urlParams.get('product');
+
+        if (productParam && productCatalogue[productParam.toUpperCase()]) {
+            activeProductKey = productParam.toUpperCase();
+        }
+
+        const hostInput = document.getElementById('customHostInput');
+        if (window.location.protocol.startsWith('http')) {
+            hostInput.value = window.location.origin + window.location.pathname;
+        } else {
+            hostInput.value = "https://yourname.github.io/meddy/";
+        }
+
+        renderProductContext();
+        updateQrTargetUrl();
+    }
+
+    function switchProduct(productKey) {
+        if (isSpeaking) window.speechSynthesis.cancel();
+        updateAudioButtonState(false);
+
+        const newUrl = window.location.pathname + '?product=' + productKey;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+        activeProductKey = productKey;
+        activeFeatureIndex = 0;
+        renderProductContext();
+        updateQrTargetUrl();
+    }
+
+    function setSegment(seg) {
+        if (isSpeaking) window.speechSynthesis.cancel();
+        updateAudioButtonState(false);
+
+        currentSegment = seg;
+        activeFeatureIndex = 0;
+
+        document.getElementById('segCaregiver').classList.toggle('active', seg === 'caregiver');
+        document.getElementById('segInfoZone').classList.toggle('active', seg === 'infoZone');
+
+        document.getElementById('appFooter').style.display = seg === 'infoZone' ? 'none' : 'flex';
+
+        renderProductContext();
+    }
+
+    function renderProductContext() {
+        const product = productCatalogue[activeProductKey];
+
+        document.documentElement.style.setProperty('--brand-theme', product.themeColor);
+        document.documentElement.style.setProperty('--brand-gradient', product.themeGradient);
+        document.getElementById('pillCap').setAttribute('fill', product.capColor);
+        document.getElementById('pillBand').setAttribute('fill', product.bandColor);
+        
+        document.getElementById('brandTitle').innerText = product.brandName;
+        document.getElementById('medTagDisplay').innerText = product.subtitle;
+
+        const featureList = currentSegment === 'caregiver' ? product.caregiverFeatures : product.infoZoneFeatures;
+
+        const navContainer = document.getElementById('navigationTabs');
+        navContainer.innerHTML = featureList.map((item, idx) => `
+            <button class="feature-nav-btn ${item.isRecomed ? 'recomed-tab' : ''} ${idx === activeFeatureIndex ? 'active' : ''}" onclick="selectFeature(${idx})">
+                ${item.title}
+            </button>
+        `).join('');
+
+        renderFeatureContent();
+    }
+
+    function selectFeature(idx) {
+        if (isSpeaking) window.speechSynthesis.cancel();
+        updateAudioButtonState(false);
+
+        activeFeatureIndex = idx;
+        renderProductContext();
+    }
+
+    function renderFeatureContent() {
+        const product = productCatalogue[activeProductKey];
+        const featureList = currentSegment === 'caregiver' ? product.caregiverFeatures : product.infoZoneFeatures;
+        const currentItem = featureList[activeFeatureIndex] || featureList[0];
+
+        let speechHtml = "";
+
+        if (currentSegment === 'caregiver' && currentItem.speechKey) {
+            const langObj = translations[activeProductKey]?.[selectedLang] || translations[activeProductKey]['en'];
+            speechHtml = langObj[currentItem.speechKey] || translations[activeProductKey]['en'][currentItem.speechKey];
+        } else {
+            speechHtml = currentItem.speech;
+        }
+
+        document.getElementById('speechText').innerHTML = speechHtml;
+        document.getElementById('infoCard').innerHTML = currentItem.card;
+    }
+
+    function calculatePanadoDose() {
+        const val = document.getElementById('doseWeightSelect').value;
+        const res = document.getElementById('doseResultText');
+        
+        const doseTable = {
+            "infant": " 2.5 mL to 5 mL (60 mg to 120 mg)",
+            "child1": " 5 mL to 10 mL (120 mg to 240 mg)",
+            "child2": " 10 mL to 20 mL (240 mg to 480 mg)"
+        };
+
+        res.innerHTML = doseTable[val] ? "<strong>Approved Dose:</strong> Give" + doseTable[val] + " every 4 hours as needed (Max 4 times per 24h)." : "Select age bracket to view approved dose";
+    }
+
+    function calculateAllergexDose() {
+        const val = document.getElementById('allergexDoseSelect').value;
+        const res = document.getElementById('allergexDoseResult');
+
+        const doseTable = {
+            "under2": "🚫 <strong>NOT recommended</strong> for children under 2 years of age.",
+            "child1": "<strong>Approved Dose:</strong> 5 mL (1 medicine measure) once daily.",
+            "child2": "<strong>Approved Dose:</strong> 10 mL (2 medicine measures) once daily.",
+            "adult": "<strong>Approved Dose:</strong> 10 mL (2 medicine measures) once daily."
+        };
+
+        res.innerHTML = doseTable[val] || "Select age bracket to view approved dose";
+    }
+
+    function updateQrTargetUrl() {
+        let baseUrl = document.getElementById('customHostInput').value.trim() || "https://yourname.github.io/meddy/";
+        baseUrl = baseUrl.split('?')[0];
+
+        const targetUrl = `${baseUrl}?product=${activeProductKey}`;
+        const encodedUrl = encodeURIComponent(targetUrl);
+        
+        document.getElementById('qrCodeImg').src = `https://quickchart.io/qr?text=${encodedUrl}&size=200&dark=0f172a`;
+        document.getElementById('qrLabel').innerText = `Scannable QR for ${productCatalogue[activeProductKey].brandName}`;
+        document.getElementById('qrTargetUrl').innerText = targetUrl;
+    }
+
+    function askMeddy() {
+        const input = document.getElementById('chatInput');
+        const q = input.value.toLowerCase().trim();
+        const product = productCatalogue[activeProductKey];
+
+        if (!q) return;
+
+        if (isSpeaking) window.speechSynthesis.cancel();
+        updateAudioButtonState(false);
+
+        // Severe triage triggers -> RecoMed Segue
+        const triageKeywords = ["doctor", "gp", "recomed", "severe", "clinic", "hospital", "breathing trouble", "unconscious", "emergency"];
+        const isTriageNeeded = triageKeywords.some(k => q.includes(k));
+
+        if (isTriageNeeded) {
+            document.getElementById('speechText').innerHTML = `🚨 <strong>Medical Attention Recommended:</strong> If symptoms are severe or persistent, please consult a medical professional immediately. You can book a GP or virtual consult via <strong>RecoMed</strong> below:`;
+            document.getElementById('infoCard').innerHTML = recomedCardTemplate;
+            input.value = '';
+            return;
+        }
+
+        let found = product.qa.find(item => item.key.some(k => q.includes(k)));
+        
+        if (found) {
+            document.getElementById('speechText').innerHTML = found.answer;
+        } else {
+            // General Fallback for unlisted queries
+            document.getElementById('speechText').innerHTML = `🤖 <strong>PIL Guidance for ${product.brandName}:</strong><br>Regarding "${input.value}": Always follow the age-based dosing guidelines and consult the official PIL attached above. If symptoms persist beyond 5 days, consult your pharmacist or doctor.`;
+        }
+        input.value = '';
+    }
+
+    function handleKey(e) { if (e.key === 'Enter') askMeddy(); }
+
+    window.onload = initFromUrl;
+</script>
+
+</body>
+</html>rset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Meddy AI - Digital Health Companion</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
