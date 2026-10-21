@@ -225,6 +225,7 @@
             width: 100%; margin-top: 10px; padding: 8px 12px; background: #f1f5f9;
             border: 1px solid #cbd5e1; border-radius: 10px; font-size: 11px;
             font-weight: 700; color: #0f172a; text-decoration: none; transition: all 0.2s ease;
+            cursor: pointer;
         }
         .pil-link-btn:hover { background: var(--brand-theme); color: #ffffff; border-color: var(--brand-theme); }
 
@@ -333,7 +334,7 @@
             <div class="brand-pill">
                 <div class="brand-logo">M</div>
                 <div>
-                    <div class="brand-title" id="brandTitle">Panado® Paediatric</div>
+                    <div class="brand-title" id="brandTitle">Panado® Paediatric Strawberry</div>
                     <div class="brand-subtitle" id="medTagDisplay">Adcock Ingram Companion</div>
                 </div>
             </div>
@@ -369,7 +370,7 @@
             <div class="info-card" id="infoCard"></div>
 
             <div class="disclaimer-banner" id="disclaimerBanner">
-                ℹ️ Meddy complements SAHPRA approved Patient information Leaflets. For severe symptoms, easily transition to RecoMed to consult a doctor.
+                ℹ️ Meddy complements SAHPRA approved Patient Information Leaflets. For severe symptoms, easily transition to RecoMed to consult a doctor.
             </div>
         </div>
 
@@ -401,12 +402,12 @@
         <div style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase;">Switch Product View & QR:</div>
 
         <button class="switch-product-btn" onclick="switchProduct('PANADO')">
-            <span>🍓 <strong>Panado® Paediatric Syrup</strong><br><small style="color:#64748b;">Analgesic & Antipyretic (Paracetamol)</small></span>
+            <span>🍓 <strong>Panado® Paediatric Syrup - Strawberry</strong><br><small style="color:#64748b;">Paracetamol 120 mg/5 mL (S0)</small></span>
             <span style="color:#008a9a;">Select ›</span>
         </button>
 
         <button class="switch-product-btn" onclick="switchProduct('ALLERGEX')">
-            <span>🌼 <strong>Allergex® Tablets (4 mg)</strong><br><small style="color:#64748b;">Antihistamine (Chlorphenamine)</small></span>
+            <span>🍊 <strong>Allergex® Non Drowsy Syrup</strong><br><small style="color:#64748b;">Loratadine 5 mg/5 mL (S1)</small></span>
             <span style="color:#d97706;">Select ›</span>
         </button>
     </div>
@@ -424,15 +425,21 @@
             recomedTitle: "🏥 Need Clinical Care? (RecoMed Integration)",
             recomedDesc: "If symptoms persist, worsen, or require immediate medical evaluation, book an online or in-person consultation with a nearby healthcare provider.",
             recomedFindBtn: "🔍 Find Nearby Doctors on RecoMed ›",
-            pilLink: "📄 SAHPRA approved Patient Information Leaflet",
+            pilLink: "📄 SAHPRA Approved Patient Information Leaflet (PDF)",
             dosePrompt: "-- Choose Child Age Bracket --",
-            doseOpt1: "3 months to 1 year (2.5 mL - 5 mL)",
+            doseOpt1: "3 months to 1 year (2,5 mL - 5 mL)",
             doseOpt2: "1 to 5 years (5 mL - 10 mL)",
             doseOpt3: "6 to 12 years (10 mL - 20 mL)",
             doseDefaultRes: "Select age bracket to view approved dose",
-            doseResPrefix: "Approved Dose: Give",
-            doseResSuffix: "every 4 hours as needed (Max 4 times per 24h).",
-            triageMsg: "🚨 <strong>Medical Attention Recommended:</strong> If symptoms are severe or persistent, please consult a medical professional immediately. You can book a GP or virtual consult via <strong>RecoMed</strong> below:",
+            doseResPrefix: "Approved Dose: Give ",
+            doseResSuffix: " orally every 4 hours as needed (Max 4 doses in 24 hours). Do not exceed 5 days.",
+            
+            allergexDosePrompt: "-- Choose Child/Adult Age Bracket --",
+            allergexOpt1: "2 to 12 years (Weight under 30 kg): 5 mL once daily",
+            allergexOpt2: "2 to 12 years (Weight over 30 kg): 10 mL once daily",
+            allergexOpt3: "Adults & Children 12+ years: 10 mL once daily",
+
+            triageMsg: "🚨 <strong>Medical Attention Recommended:</strong> If symptoms are severe or persistent beyond the recommended PIL days, consult a medical professional immediately via <strong>RecoMed</strong> below:",
             defaultBotMsg: "🤖 Meddy verified <b>{product}</b> PIL guidance regarding \"{query}\". Always consult your doctor or pharmacist."
         },
         zu: {
@@ -445,14 +452,20 @@
             recomedTitle: "🏥 Udinga Ukunakekelwa Kwezokwelapha? (RecoMed)",
             recomedDesc: "Uma izimpawu ziyaqhubeka noma ziba zimbi, bhukha udokotela eduze nawe ku-RecoMed.",
             recomedFindBtn: "🔍 Thola Odokotela Eduze Nawe ku-RecoMed ›",
-            pilLink: "📄 SAHPRA Iphepha Solwazi Elivunyelwe",
+            pilLink: "📄 SAHPRA Iphepha Solwazi Elivunyelwe (PDF)",
             dosePrompt: "-- Khetha Iminyaka Yengane --",
-            doseOpt1: "Izinyanga ezi-3 kuya kunyaka o-1 (2.5 mL - 5 mL)",
+            doseOpt1: "Izinyanga ezi-3 kuya kunyaka o-1 (2,5 mL - 5 mL)",
             doseOpt2: "Iminyaka e-1 kuya kweyisi-5 (5 mL - 10 mL)",
             doseOpt3: "Iminyaka eyisi-6 kuya kweyimi-12 (10 mL - 20 mL)",
             doseDefaultRes: "Khetha iminyaka ukubona umthamo ovunyelwe",
-            doseResPrefix: "Umthamo Ovunyelwe: Nika",
-            doseResSuffix: "njalo ngamahora amane uma kudingeka (Izinga eliphakeme imithamo e-4 ngosuku).",
+            doseResPrefix: "Umthamo Ovunyelwe: Nika ",
+            doseResSuffix: " ngomlomo njalo ngamahora amane uma kudingeka (Izinga eliphakeme imithamo e-4 emahoreni angama-24). Ungangqithi izinsuku ezi-5.",
+            
+            allergexDosePrompt: "-- Khetha Iminyaka Nesisindo --",
+            allergexOpt1: "Iminyaka e-2 kuya kweyisi-12 (Ngaphansi kuka-30 kg): 5 mL kanye ngosuku",
+            allergexOpt2: "Iminyaka e-2 kuya kweyisi-12 (Ngaphezu kuka-30 kg): 10 mL kanye ngosuku",
+            allergexOpt3: "Abantu abadala nezingane ezineminyaka engu-12+: 10 mL kanye ngosuku",
+
             triageMsg: "🚨 <strong>Kudingeka Udokotela Ngokushesha:</strong> Uma izimpawu ziba zimbi, yakha ukubonana nadokotela ku-RecoMed ngezansi:",
             defaultBotMsg: "🤖 U-Meddy uqinisekise ulwazi lwe-PIL lwe-<b>{product}</b> ngokuphathelene ne-\"{query}\". Xhumana nadokotela njalo."
         },
@@ -466,18 +479,42 @@
             recomedTitle: "🏥 Benodig jy Mediese Sorg? (RecoMed)",
             recomedDesc: "As simptome voortduur of vererger, bespreek 'n aanlyn of persoonlike konsultasie met 'n dokter via RecoMed.",
             recomedFindBtn: "🔍 Vind Dokters Naby Jou op RecoMed ›",
-            pilLink: "📄 SAHPRA Goedgekeurde Pasiëntvoubiljet",
+            pilLink: "📄 SAHPRA Goedgekeurde Pasiëntvoubiljet (PDF)",
             dosePrompt: "-- Kies Kind se Ouderdom --",
-            doseOpt1: "3 maande tot 1 jaar (2.5 mL - 5 mL)",
+            doseOpt1: "3 maande tot 1 jaar (2,5 mL - 5 mL)",
             doseOpt2: "1 tot 5 jaar (5 mL - 10 mL)",
             doseOpt3: "6 tot 12 jaar (10 mL - 20 mL)",
             doseDefaultRes: "Kies ouderdomsgroep om goedgekeurde dosis te sien",
-            doseResPrefix: "Goedgekeurde Dosis: Gee",
-            doseResSuffix: "elke 4 uur indien nodig (Maksimum 4 dosisse per 24 uur).",
+            doseResPrefix: "Goedgekeurde Dosis: Gee ",
+            doseResSuffix: " mondelings elke 4 uur indien nodig (Maksimum 4 dosisse per 24 uur). Moenie 5 dae oorskry nie.",
+            
+            allergexDosePrompt: "-- Kies Ouderdom / Gewig --",
+            allergexOpt1: "2 tot 12 jaar (Gewig onder 30 kg): 5 mL een keer per dag",
+            allergexOpt2: "2 tot 12 jaar (Gewig oor 30 kg): 10 mL een keer per dag",
+            allergexOpt3: "Volwassenes & Kinders 12+ jaar: 10 mL een keer per dag",
+
             triageMsg: "🚨 <strong>Mediese Aandag Aanbeveel:</strong> As simptome ernstig is, raadpleeg asseblief onmiddellik 'n dokter via <strong>RecoMed</strong> hieronder:",
             defaultBotMsg: "🤖 Meddy het <b>{product}</b> se voubiljet inligting geverifieer rakende \"{query}\". Raadpleeg altyd jou dokter."
         }
     };
+
+    function openPilDocument(productKey) {
+        // Direct exact filenames from attached PIL documents
+        const localPanado = encodeURIComponent("PIL-2025739-Panado-Strawberry_TG (1).pdf");
+        const localAllergex = encodeURIComponent("ALLERGEX-NON-DROWSY-SYRUP-360008-0008-1.3.2-PIL-Approved.pdf");
+        
+        // Web fallbacks for Panado Strawberry & Allergex Non Drowsy Syrup
+        const webPanado = "https://www.adcock.com/Content/pdf/Panado_Paediatric_Syrup_Alcohol_Free_Strawberry_Flavour.pdf";
+        const webAllergex = "https://www.adcock.com/Content/pdf/Allergex_Non_Drowsy_Syrup.pdf";
+
+        const targetLocal = productKey === 'PANADO' ? localPanado : localAllergex;
+        const targetWeb = productKey === 'PANADO' ? webPanado : webAllergex;
+
+        const win = window.open(targetLocal, '_blank');
+        if (!win || win.closed || typeof win.closed == 'undefined') {
+            window.open(targetWeb, '_blank');
+        }
+    }
 
     function getRecomedCardTemplate(lang) {
         const u = uiTranslations[lang] || uiTranslations.en;
@@ -499,36 +536,36 @@
     const posterData = {
         PANADO: {
             en: {
-                header: "Panado® Administration Poster",
-                dos: ["Shake bottle thoroughly before measuring.", "Measure exact dose with metric oral syringe or cup.", "Wait 4-6 hours between doses.", "Keep child well hydrated with fluids."],
-                donts: ["Do NOT give more than 4 doses in 24 hours.", "Do NOT use household tea/table spoons.", "Do NOT combine with other paracetamol products.", "Do NOT give longer than 5 days without a GP."]
+                header: "Panado® Paediatric Strawberry Administration Poster",
+                dos: ["Shake the bottle before use.", "Measure exact dosage (2,5 mL to 20 mL based on age).", "Repeat every 4 hours if needed (max 4 doses in 24 hours).", "Keep bottle well closed and protected from light."],
+                donts: ["Do NOT exceed recommended dose or give longer than 5 days without a GP.", "Do NOT give if child has serious liver function problems.", "Do NOT combine with other paracetamol products (risk of severe liver damage).", "Do NOT refrigerate, freeze, or store in a bathroom."]
             },
             zu: {
-                header: "Isimemezelo Sokuphatha I-Panado®",
-                dos: ["Gcolisa ibhotela kahle ngaphambi kokulinganisa.", "Linganisa umthamo oqondile ngesiringi yomlomo noma inkomishi.", "Linda amahora amane kuya kwayisithupha phakathi kwemithamo.", "Gcina ingane inamanzi anele emzimbeni."],
-                donts: ["UNGANIKEZI imithamo engaphezu kwemine emahoreni angama-24.", "UNGASEBENZISI izipuni zasekhishini.", "UNGAHLANGANISI neminye imikhiqizo ene-paracetamol.", "UNGANIKEZI ngaphezu kwezinsuku eziyisithupha ngaphandle kukadokotela."]
+                header: "Isimemezelo Sokuphatha I-Panado® Strawberry",
+                dos: ["Gcolisa ibhotela ngaphambi kokusebenzisa.", "Linganisa umthamo ngqo (2,5 mL kuya ku-20 mL ngokweminyaka).", "Phinda ngemuva kwamahora ayi-4 uma kudingeka (imithamo e-4 max ngosuku).", "Gcina ibhotela livaliwe kakhulu kude nokukhanya."],
+                donts: ["UNGANIKI ngaphezu kwezinsuku ezi-5 ngaphandle kukadokotela.", "UNGANIKI uma ingane inezinkinga ezinkulu zesibindi.", "UNGAHLANGANISI neminye imikhiqizo ene-paracetamol (ingozi esibindini).", "UNGAFIKA efrijini noma ugbcine endlini yokugezela."]
             },
             af: {
-                header: "Panado® Toedieningsplakkaat",
-                dos: ["Skud die bottel deeglik voor meting.", "Meet presiese dosis met 'n metriese spuit of koppie.", "Wag 4-6 uur tussen dosisse.", "Hou die kind goed gehidreer met vloeistowwe."],
-                donts: ["Moenie meer as 4 dosisse per 24 uur gee nie.", "Moenie huishoudelike teelepels gebruik nie.", "Moenie kombineer met ander parasetamol produkte nie.", "Moenie langer as 5 dae gee sonder 'n dokter nie."]
+                header: "Panado® Paediatric Strawberry Toedieningsplakkaat",
+                dos: ["Skud die bottel voor gebruik.", "Meet presiese dosis (2,5 mL tot 20 mL gebaseer op ouderdom).", "Herhaal elke 4 uur indien nodig (maks 4 dosisse per 24 uur).", "Hou bottel goed toegemaak en beskerm teen lig."],
+                donts: ["Moenie meer as 5 dae gee sonder 'n dokter nie.", "Moenie gee as die kind ernstige lewerprobleme het nie.", "Moenie kombineer met ander parasetamol produkte nie.", "Moenie verkoel, vries of in 'n badkamer bêre nie."]
             }
         },
         ALLERGEX: {
             en: {
-                header: "Allergex® Administration Poster",
-                dos: ["Administer with water or food if stomach upset occurs.", "Strictly adhere to age minimums (6+ years).", "Store below 25°C in a dry container."],
-                donts: ["Do NOT administer to toddlers under 6 years.", "Do NOT drive or operate machinery (drowsiness).", "Do NOT combine with alcohol or sedatives."]
+                header: "Allergex® Non Drowsy Syrup Administration Poster",
+                dos: ["Take once daily for allergic rhinitis or chronic urticaria (hives).", "May be taken with or without food.", "Store below 25°C protected from light.", "Consult a GP if symptoms worsen or do not improve after 14 days."],
+                donts: ["Do NOT give to children under 2 years of age.", "Do NOT take for longer than 14 days without medical advice.", "Do NOT give if child is allergic to Loratadine or sodium benzoate.", "Do NOT double up on missed doses."]
             },
             zu: {
-                header: "Isimemezelo Sokuphatha I-Allergex®",
-                dos: ["Phatha ngamanzi noma ukudla uma isisu siphazamiseka.", "Olanela ngokucophelela iminyaka yobudala (6+ iminyaka).", "Gcina ngaphansi kuka-25°C esitheni esomile."],
-                donts: ["UNGANIKEZI ezinganeni ezingaphansi kweminyaka eyisithupha.", "UNGASHAYELI noma usebenzise imishini (ubuthongo).", "UNGAHLANGANISI notshwala noma imithi yobuthongo."]
+                header: "Isimemezelo Sokuphatha I-Allergex® Non Drowsy",
+                dos: ["Thatha kanye ngosuku kwezifo zokungezwani nomzimba (allergies).", "Kungathathwa nokudla noma ngaphandle kokudla.", "Gcina ngaphansi kuka-25°C ebumnyameni.", "Bonana nadokotela uma izimpawu ziqhubeka ngaphezu kwezinsuku ezi-14."],
+                donts: ["UNGANIKI ezinganeni ezingaphansi kweminyaka eyi-2.", "UNGATHATHI ngaphezu kwezinsuku ezi-14 ngaphandle kukadokotela.", "UNGANIKI uma ingane inemiphumela emibi ku-Loratadine.", "UNGAHLELISI imithamo eyi-double uma ukhohlwe umthamo."]
             },
             af: {
-                header: "Allergex® Toedieningsplakkaat",
-                dos: ["Neem neem met water of kos as maagsteuring voorkom.", "Voldoen streng aan die minimum ouderdom (6+ jaar).", "Bêre onder 25°C in 'n droë houer."],
-                donts: ["Moenie aan kinders onder 6 jaar toedien nie.", "Moenie bestuur of masjinerie hanteer nie (lomerigheid).", "Moenie kombineer met alkohol of sedatiewe nie."]
+                header: "Allergex® Non Drowsy Syrup Toedieningsplakkaat",
+                dos: ["Neem een keer per dag vir allergieë of korrelagtige uitslag.", "Kan saam met of sonder kos geneem word.", "Bêre onder 25°C beskerm teen lig.", "Raadpleeg 'n dokter as simptome nie na 14 dae verbeter nie."],
+                donts: ["Moenie vir kinders onder 2 jaar gee nie.", "Moenie langer as 14 dae neem sonder mediese advies nie.", "Moenie gee as die kind allergies is vir Loratadine nie.", "Moenie 'n dubbele dosis neem vir 'n vergete dosis nie."]
             }
         }
     };
@@ -536,9 +573,6 @@
     function renderPosterHtml(productKey, lang) {
         const p = posterData[productKey][lang] || posterData[productKey]['en'];
         const u = uiTranslations[lang] || uiTranslations.en;
-        const linkUrl = productKey === 'PANADO' 
-            ? "https://www.adcock.com/Content/pdf/Panado_Paediatric_Syrup_Alcohol_Free_Grape_Flavour.pdf"
-            : "https://www.adcock.com/content/pdf/Allergex_Tablets_PI.pdf";
 
         const dosList = p.dos.map(d => `<li class="poster-item"><span class="bullet-do">✓</span> ${d}</li>`).join('');
         const dontsList = p.donts.map(d => `<li class="poster-item"><span class="bullet-dont">✕</span> ${d}</li>`).join('');
@@ -558,175 +592,194 @@
                     </div>
                 </div>
             </div>
-            <a class="pil-link-btn" href="${linkUrl}" target="_blank" rel="noopener">${u.pilLink}</a>
+            <button class="pil-link-btn" onclick="openPilDocument('${productKey}')">${u.pilLink}</button>
         `;
     }
 
     const translations = {
         PANADO: {
             en: {
-                f1_speech: "⚡ <strong>Quick Administration Do's & Don'ts:</strong> Here are quick, PIL-verified safety rules to follow when giving Panado to your child.",
-                f2_speech: "👋 You scanned <strong>Panado® Paediatric Syrup</strong>. It contains Paracetamol (120 mg/5 mL) for symptomatic relief of mild to moderate pain and fever in children.",
-                f3_speech: "🥄 <strong>Dosing Guide:</strong> Dosage is based on child age/weight. Always administer using a metric oral syringe or medicine cup.",
-                f4_speech: "⏱️ Repeat every 4 hours if needed. <strong>MAX 4 doses per 24 hours.</strong> Do NOT use continuously for more than 5 to 10 days.",
-                f5_speech: "❄️ Store at or below 25°C protected from light. Keep bottle well closed and out of reach of children. Do not freeze.",
-                f6_speech: "🩺 <strong>Need a Doctor?</strong> If symptoms are severe or persist beyond 3-5 days, use our RecoMed integration to quickly find and book a healthcare practitioner near you.",
-                
+                f1_speech: "⚡ <strong>Quick Administration Do's & Don'ts:</strong> Here are PIL-verified safety rules for Panado® Paediatric Syrup Strawberry.",
+                f2_speech: "👋 You scanned <strong>Panado® Paediatric Syrup Strawberry</strong> (S0). Each 5 mL contains Paracetamol 120 mg. Sugar-free and Tartrazine-free.",
+                f3_speech: "🥄 <strong>Dosage Calculator:</strong> Dosage depends on age bracket (3 mos to 12 yrs). Repeat every 4 hours as needed (Max 4 doses in 24 hrs).",
+                f4_speech: "⏱️ <strong>Overdose & Duration Warning:</strong> Contains Paracetamol which may be fatal in overdose. Do NOT give for longer than 5 days without consulting a doctor.",
+                f5_speech: "❄️ <strong>Storage Instructions:</strong> Store at or below 25°C protected from light in well-closed container. Do not refrigerate or freeze. Keep out of reach of children.",
+                f6_speech: "🩺 <strong>Need a Doctor?</strong> If pain/fever symptoms worsen or do not improve after 5 days, use RecoMed to consult a GP.",
+
                 tab_f1: "⚡ Quick Do's & Don'ts",
-                tab_f2: "Overview",
-                tab_f3: "Dosage Guide",
-                tab_f4: "Interval & Warnings",
-                tab_f5: "Storage",
+                tab_f2: "Overview (S0)",
+                tab_f3: "Dosage Calculator",
+                tab_f4: "Warnings & Duration",
+                tab_f5: "Storage & Safety",
                 tab_f6: "🏥 Find a Doctor",
 
-                overviewCard: `<div class="info-card-title">1. What is this medicine used for?</div><p style="font-size:12px; line-height:1.4;">Used to treat fever and mild to moderate pain (e.g., teething, colds, immunisations). Consult a doctor if symptoms do not improve after 5 days.</p>`,
-                warningCard: `<div class="info-card-title">4. Critical Safety Warnings</div><p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>⚠️ Paracetamol Overdose Warning:</strong> Contains paracetamol which can cause severe liver damage in high doses. Do not combine with other paracetamol-containing medicines.</p>`,
-                storageCard: `<div class="info-card-title">5. Storage Instructions</div><p style="font-size:12px; line-height:1.4;">Store in outer carton at or below 25°C. Do not store in bathrooms. Return unused syrup to your pharmacist for safe disposal.</p>`,
+                overviewCard: `<div class="info-card-title">1. What Panado Paediatric Strawberry is and what it is used for</div>
+                               <p style="font-size:12px; line-height:1.4;">Active ingredient <strong>Paracetamol (120 mg/5 mL)</strong> acts as an analgesic (pain reliever) and antipyretic (reduces fever). Used for symptomatic treatment of mild to moderate pain and fever. Contains sodium cyclamate & sorbitol. Sugar free & Tartrazine free.</p>`,
+                warningCard: `<div class="info-card-title">4. Warnings & Duration Limits</div>
+                              <p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>⚠️ Severe Overdose Warning:</strong> Contains paracetamol which may be fatal in overdose. In suspected overdose, contact a doctor or Poison Centre immediately. Do not use continuously for more than 10 days, and consult a doctor if fever/pain symptoms persist beyond 5 days.</p>`,
+                storageCard: `<div class="info-card-title">5. How to store Panado Paediatric Syrup Strawberry</div>
+                             <p style="font-size:12px; line-height:1.4;">Store in well closed container protected from light at or below 25°C. Do not refrigerate or freeze. Do not store in a bathroom. Return all unused medicine to your pharmacist.</p>`,
 
-                qa_fever: "🌡️ Panado treats fever (>38°C). Ensure your child drinks plenty of fluids. If high fever persists, use the 'Find a Doctor' tab to book via RecoMed.",
-                qa_dose: "⚖️ Dosing: 3–12 mos (2.5–5 mL), 1–5 yrs (5–10 mL), 6–12 yrs (10–20 mL). Max 4 doses in 24 hours.",
-                qa_pil: "📄 You can open the SAHPRA approved Patient Information Leaflet directly using the button in the information card above!"
+                qa_fever: "🌡️ Panado treats fever and mild-to-moderate pain. Give the recommended dose every 4 hours as needed. Consult a doctor if fever lasts longer than 5 days.",
+                qa_dose: "⚖️ Approved Dosing (Oral): 3–12 mos (2,5–5 mL), 1–5 yrs (5–10 mL), 6–12 yrs (10–20 mL). Max 4 doses in 24 hours.",
+                qa_pil: "📄 Click below to open the official SAHPRA approved Panado Paediatric Syrup Strawberry Patient Information Leaflet!"
             },
             zu: {
-                f1_speech: "⚡ <strong>Imithetho Esheshayo Engagwenywa:</strong> Nansi imithetho eqinisekisiwe ye-PIL yokunikeza ingane yakho i-Panado.",
-                f2_speech: "👋 Uskani <strong>Panado® Paediatric Syrup</strong>. Ine-Paracetamol (120 mg/5 mL) yokusiza ukulawula ubuhlungu nomkhuhlane ezinganeni.",
-                f3_speech: "🥄 <strong>Umhlahlandlela Womthamo:</strong> Umthamo unqunywa ngokobudala nesisindo sengane. Sebenzisa isiringi yomlomo noma inkomishi yemithi.",
-                f4_speech: "⏱️ Phinda ngemuva kwamahora ayi-4 uma kudingeka. <strong>Izinga eliphakeme imithamo emi-4 emahoreni angama-24.</strong> Ungasebenzisi izinsuku ezingaphezu kwezi-5 kuya kwezingu-10.",
-                f5_speech: "❄️ Gcina ezingeni lokushisa elingaphansi kuka-25°C ebumnyameni. Gcina ibhotela livaliwe kakhulu kude nezingane.",
-                f6_speech: "🩺 <strong>Udinga Udokotela?</strong> Uma izimpawu ziba rimbi noma ziyaqhubeka, sebenzisa u-RecoMed ukuthola udokotela eduze nawe.",
+                f1_speech: "⚡ <strong>Imithetho Esheshayo Engagwenywa:</strong> Nansi imithetho eqinisekisiwe ye-PIL ye-Panado® Paediatric Syrup Strawberry.",
+                f2_speech: "👋 Uskani <strong>Panado® Paediatric Syrup Strawberry</strong> (S0). Incxenye ngayinye ye-5 mL inetshukela ene-Paracetamol 120 mg. Aina shukela ne-Tartrazine.",
+                f3_speech: "🥄 <strong>Umhlahlandlela Womthamo:</strong> Umthamo unqunywa ngokobudala. Phinda ngemuva kwamahora ayi-4 (Izinga eliphakeme imithamo e-4 emahoreni angama-24).",
+                f4_speech: "⏱️ <strong>Isexwayiso Se-Overdose:</strong> Ine-Paracetamol engaba yingozi kakhulu uma uthatha eningi. Unganiki ngaphezu kwezinsuku ezi-5 ngaphandle kukadokotela.",
+                f5_speech: "❄️ <strong>Ukugcina Umuthi:</strong> Gcina ngaphansi kuka-25°C ebumnyameni. Ungafiki efrijini. Gcina kude nezingane.",
+                f6_speech: "🩺 <strong>Udinga Udokotela?</strong> Uma izimpawu ziyaqhubeka emuva kwezinsuku ezi-5, sebenzisa u-RecoMed ukuthola udokotela.",
 
-                tab_f1: "⚡ Okufanele Kwenziwe Ndingenziwa",
-                tab_f2: "Isifinyezo",
-                tab_f3: "Umthamo Wandawonye",
-                tab_f4: "Izixwayiso Noshintsho",
+                tab_f1: "⚡ Okufanele Kwenziwe",
+                tab_f2: "Isifinyezo (S0)",
+                tab_f3: "I-Calculator Yomthamo",
+                tab_f4: "Izixwayiso No-5 Days",
                 tab_f5: "Ukugcina Umuthi",
                 tab_f6: "🏥 Thola Udokotela",
 
-                overviewCard: `<div class="info-card-title">1. Ungasetshenziswa Yini Lo Muthi?</div><p style="font-size:12px; line-height:1.4;">Usetshenziselwa ukwelapha umkhuhlane nobuhlungu obuncane ezinganeni. Bonana nadokotela uma kuqhubeka emuva kwezinsuku ezi-5.</p>`,
-                warningCard: `<div class="info-card-title">4. Izixwayiso Zokuphepha Ezibalulekile</div><p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>⚠️ Isexwayiso Se-Overdose Paracetamol:</strong> Ine-paracetamol engalimaza isibindi uma ithathwa kakhulu.</p>`,
-                storageCard: `<div class="info-card-title">5. Imiyalelo Yokugcina</div><p style="font-size:12px; line-height:1.4;">Gcina ebhokisini ezingeni lokushisa elingaphansi kuka-25°C. Gcina kude nezingane.</p>`,
+                overviewCard: `<div class="info-card-title">1. Usetshenziswa yini lo muthi?</div><p style="font-size:12px; line-height:1.4;">I-Paracetamol (120 mg/5 mL) yokwelapha umkhuhlane nobuhlungu obuncane ezinganeni. Ayinashukela (Sugar free) nemibala ye-Tartrazine.</p>`,
+                warningCard: `<div class="info-card-title">4. Izixwayiso Zokuphepha</div><p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>⚠️ Isexwayiso Se-Overdose Paracetamol:</strong> Ine-paracetamol engalimaza isibindi ngokudlulele. Bonana nadokotela uma izimpawu zengane zingcono emva kwezinsuku ezi-5.</p>`,
+                storageCard: `<div class="info-card-title">5. Ukugcina Umuthi</div><p style="font-size:12px; line-height:1.4;">Gcina ebhokisini ezingeni lokushisa elingaphansi kuka-25°C. Ungafiki efrijini ekhaya.</p>`,
 
-                qa_fever: "🌡️ I-Panado welapha umkhuhlane (>38°C). Ingane yakho mayiphuze amanzi anele. Uma umkhuhlane uqhubeka, sebenzisa tab ka-RecoMed.",
-                qa_dose: "⚖️ Umthamo: Izinyanga 3–12 (2.5–5 mL), Iminyaka 1–5 (5–10 mL), Iminyaka 6–12 (10–20 mL). Imithamo e-4 usuku nosuku.",
-                qa_pil: "📄 Ungavula iphepha solwazi lwe-SAHPRA ngokuchofoza inkinobho ebhokisini lemininingwane ngenhla!"
+                qa_fever: "🌡️ I-Panado welapha umkhuhlane. Nika umthamo kusebenza njalo ngamahora e-4. Bonana nadokotela emva kwezinsuku ezi-5.",
+                qa_dose: "⚖️ Umthamo Ovunyelwe: Izinyanga 3–12 (2,5–5 mL), Iminyaka 1–5 (5–10 mL), Iminyaka 6–12 (10–20 mL). Max imithamo e-4 ngosuku.",
+                qa_pil: "📄 Ungavula iphepha solwazi lwe-SAHPRA lwe-Panado Strawberry ngezansi!"
             },
             af: {
-                f1_speech: "⚡ <strong>Vinnige Moets en Moennies:</strong> Hier is vinnige, goedgekeurde reëls vir die veilige toediening van Panado.",
-                f2_speech: "👋 Jy het <strong>Panado® Paediatric Syrup</strong> geskandeer. Dit bevat Parasetamol (120 mg/5 mL) vir verligting van ligte tot matige pyn en koors by kinders.",
-                f3_speech: "🥄 <strong>Doseringsgids:</strong> Dosering is gebaseer op kind se ouderdom en gewig. Gebruik altyd 'n metriese mondspuit of medisynekoppie.",
-                f4_speech: "⏱️ Herhaal elke 4 uur indien nodig. <strong>Maksimum 4 dosisse per 24 uur.</strong> Moenie langer as 5 tot 10 dae aaneenlopend gebruik nie.",
-                f5_speech: "❄️ Bêre by of onder 25°C beskerm teen lig. Hou bottel goed toegemaak en buite bereik van kinders.",
-                f6_speech: "🩺 <strong>Het jy 'n Dokter Nodig?</strong> As simptome vererger of voortduur, gebruik RecoMed om vinnig 'n dokter naby jou te vind.",
+                f1_speech: "⚡ <strong>Vinnige Moets en Moennies:</strong> Goedgekeurde reëls vir Panado® Paediatric Syrup Strawberry uit die voubiljet.",
+                f2_speech: "👋 Jy het <strong>Panado® Paediatric Syrup Strawberry</strong> (S0) geskandeer. Bevat Parasetamol 120 mg/5 mL. Suikervry en Tartrasienvry.",
+                f3_speech: "🥄 <strong>Doserings rekenaar:</strong> Dosis is gebaseer op ouderdom (3 maande tot 12 jaar). Herhaal elke 4 uur (Maks 4 dosisse per 24 uur).",
+                f4_speech: "⏱️ <strong>Waarskuwing:</strong> Bevat Parasetamol wat dodelik kan wees in oordosis. Moenie langer as 5 dae gee sonder 'n dokter nie.",
+                f5_speech: "❄️ <strong>Berging:</strong> Bêre by of onder 25°C beskerm teen lig. Moenie verkoel of vries nie. Hou buite bereik van kinders.",
+                f6_speech: "🩺 <strong>Het jy 'n Dokter Nodig?</strong> As simptome voortduur na 5 dae, gebruik RecoMed om 'n dokter te vind.",
 
                 tab_f1: "⚡ Vinnige Moets & Moennies",
-                tab_f2: "Oorsig",
-                tab_f3: "Doseringsgids",
-                tab_f4: "Waarskuwings",
-                tab_f5: "Berging",
+                tab_f2: "Oorsig (S0)",
+                tab_f3: "Doseringsrekenaar",
+                tab_f4: "Waarskuwings & Limiete",
+                tab_f5: "Berging & Veiligheid",
                 tab_f6: "🏥 Vind 'n Dokter",
 
-                overviewCard: `<div class="info-card-title">1. Waarvoor word hierdie medisyne gebruik?</div><p style="font-size:12px; line-height:1.4;">Gebruik vir behandeling van koors en ligte tot matige pyn by kinders. Raadpleeg 'n dokter as simptome nie na 5 dae verbeter nie.</p>`,
-                warningCard: `<div class="info-card-title">4. Kritiese Veiligheidswaarskuwings</div><p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>⚠️ Parasetamol Oordosis Waarskuwing:</strong> Bevat parasetamol wat ernstige lewerskade kan veroorsaak in hoë dosisse.</p>`,
-                storageCard: `<div class="info-card-title">5. Bêre-instruksies</div><p style="font-size:12px; line-height:1.4;">Bêre in die buiteverpakking by of onder 25°C. Hou buite bereik van kinders.</p>`,
+                overviewCard: `<div class="info-card-title">1. Waarvoor word hierdie medisyne gebruik?</div><p style="font-size:12px; line-height:1.4;">Bestanddeel <strong>Parasetamol (120 mg/5 mL)</strong> verlig pyn en koors. Suikervry en Tartrasienvry.</p>`,
+                warningCard: `<div class="info-card-title">4. Waarskuwings</div><p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>⚠️ Oordosis Waarskuwing:</strong> Bevat parasetamol wat ernstige lewerskade kan veroorsaak. Raadpleeg 'n dokter as simptome langer as 5 dae duur.</p>`,
+                storageCard: `<div class="info-card-title">5. Bêre-instruksies</div><p style="font-size:12px; line-height:1.4;">Bêre by of onder 25°C beskerm teen lig. Moenie verkoel of vries nie.</p>`,
 
-                qa_fever: "🌡️ Panado behandel koors (>38°C). Maak seker jou kind drink baie vloeistowwe. As koors voortduur, gebruik RecoMed.",
-                qa_dose: "⚖️ Dosis: 3–12 maande (2.5–5 mL), 1–5 jaar (5–10 mL), 6–12 jaar (10–20 mL). Maks 4 dosisse per 24 uur.",
-                qa_pil: "📄 Jy kan die SAHPRA goedgekeurde pasiëntvoubiljet oopmaak met die knoppie hierbo!"
+                qa_fever: "🌡️ Panado behandel koors en pyn. Gee elke 4 uur indien nodig. Raadpleeg 'n dokter na 5 dae.",
+                qa_dose: "⚖️ Dosis: 3–12 maande (2,5–5 mL), 1–5 jaar (5–10 mL), 6–12 jaar (10–20 mL). Maksimum 4 dosisse per 24 uur.",
+                qa_pil: "📄 Klik hieronder om die amptelike SAHPRA goedgekeurde Panado Strawberry voubiljet oop te maak!"
             }
         },
 
         ALLERGEX: {
             en: {
-                f1_speech: "⚡ <strong>Quick Administration Do's & Don'ts:</strong> Essential safety rules from the SAHPRA PIL for administering Allergex.",
-                f2_speech: "👋 You scanned <strong>Allergex® 4 mg Tablets</strong>. Contains Chlorphenamine Maleate to treat allergic conditions such as hay fever, hives, insect bites, and rhinitis.",
-                f3_speech: "💊 <strong>Approved Dose:</strong> Adults & Children 12+: 1 tablet (4 mg) every 4-6 hrs. Children 6–12 yrs: Half tablet (2 mg) every 4-6 hrs.",
-                f4_speech: "😴 <strong>Drowsiness Alert:</strong> Allergex leads to drowsiness. Avoid driving or operating machinery. Avoid alcohol and sedatives.",
-                f5_speech: "🩺 <strong>Severe Allergy or Breathing Difficulty?</strong> If experiencing swelling, breathing trouble, or severe reactions, seek immediate clinical care via RecoMed.",
+                f1_speech: "⚡ <strong>Quick Administration Do's & Don'ts:</strong> PIL safety rules for Allergex® Non Drowsy Syrup.",
+                f2_speech: "👋 You scanned <strong>Allergex® Non Drowsy Syrup</strong> (S1). Active substance per 5 mL is Loratadine 5 mg. Non-drowsy antihistamine with peach odour.",
+                f3_speech: "🥄 <strong>Dosage Guide:</strong> Given ONCE DAILY. Adults & Kids 12+: 10 mL once daily. Kids 2–12 yrs (<30 kg): 5 mL once daily. Kids 2–12 yrs (>30 kg): 10 mL once daily.",
+                f4_speech: "⏱️ <strong>Duration & Precautions:</strong> Do NOT give to children under 2 years. Do NOT take for longer than 14 days without a doctor's advice.",
+                f5_speech: "🩺 <strong>Need Clinical Advice?</strong> If allergy symptoms persist beyond 14 days, consult a healthcare provider via RecoMed.",
 
                 tab_f1: "⚡ Quick Do's & Don'ts",
-                tab_f2: "Indications",
-                tab_f3: "Dosage Guidelines",
-                tab_f4: "Drowsiness Warning",
+                tab_f2: "Overview (S1 Non-Drowsy)",
+                tab_f3: "Once-Daily Dosage",
+                tab_f4: "14-Day Limit & Precautions",
                 tab_f5: "🏥 Find a Doctor",
 
-                indicationsCard: `<div class="info-card-title">1. What is Allergex used for?</div><p style="font-size:12px; line-height:1.4;">Relieves allergy symptoms including sneezing, runny nose, itchy skin rashes, and insect bites.</p>`,
-                dosageCard: `<div class="info-card-title">2. Age Restrictions & Dosing</div><p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>🚫 Age Limit:</strong> Use in children under 6 years of age is NOT recommended per SAHPRA PIL guidance.</p>`,
-                drowsyCard: `<div class="info-card-title">4. Safety Precautions</div><p style="font-size:12px; line-height:1.4;">Contains lactose. Do not take if you suffer from glaucoma or severe asthma attacks.</p>`,
+                overviewCard: `<div class="info-card-title">1. What Allergex Non Drowsy Syrup is and what it is used for</div>
+                               <p style="font-size:12px; line-height:1.4;">Active substance per 5 mL is <strong>Loratadine (micronised) 5 mg</strong>. It belongs to a class of medicines called antihistamines. Used for relief of symptoms associated with allergic rhinitis (e.g., sneezing, runny nose, itching) and chronic urticaria (hives). Clear, colourless solution with peach odour.</p>`,
+                dosageCard: `<div class="info-card-title">3. How to take Allergex Non Drowsy Syrup</div>
+                             <p style="font-size:12px; line-height:1.4;"><strong>Administration:</strong> Take once daily with or without food. Recommended for adults and children older than 2 years of age.</p>`,
+                drowsyCard: `<div class="info-card-title">2 & 3. Duration Limits & Safety Precautions</div>
+                            <p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>🚫 Age & Duration Restrictions:</strong> Not recommended for children under 2 years of age. Do not take for longer than 14 days without consulting a doctor. Contains sucrose (1 000 mg/5 mL) and sodium benzoate.</p>`,
 
-                qa_sleep: "😴 Yes, Allergex causes drowsiness. Do not drive or engage in hazardous activities.",
-                qa_under6: "🚫 Allergex tablets are not recommended for children under 6 years of age.",
-                qa_pil: "📄 You can open the SAHPRA approved Patient Information Leaflet directly using the button in the information card above!"
+                qa_sleep: "🌼 Allergex Non Drowsy Syrup contains Loratadine, a non-drowsy antihistamine that typically does not cause sleepiness at recommended doses.",
+                qa_under2: "🚫 Allergex Non Drowsy Syrup is NOT recommended for children under 2 years of age.",
+                qa_pil: "📄 Click below to open the official SAHPRA approved Allergex Non Drowsy Syrup Patient Information Leaflet!"
             },
             zu: {
-                f1_speech: "⚡ <strong>Imithetho Esheshayo Yokusebenzisa:</strong> Imithetho ebalulekile evela e-PIL yokusebenzisa i-Allergex ngokuphepha.",
-                f2_speech: "👋 Uskani <strong>Allergex® 4 mg Tablets</strong>. Ine-Chlorphenamine Maleate yokwelapha ukungezwani nokudla, amakhala agijimayo kanye nokulunywa izinto.",
-                f3_speech: "💊 <strong>Umthamo Ovunyelwe:</strong> Abantu abadala nezingane 12+: Ithebulethi eli-1 njalo ngamahora 4-6. Izingane zonyaka 6-12: Hhafu yethebulethi.",
-                f4_speech: "😴 <strong>Isexwayiso Somnyama:</strong> I-Allergex iletha ubuthongo. Gwema ukushayela noma ukusebenzisa imishini.",
-                f5_speech: "🩺 <strong>Ufuna Udokotela Ngokushesha?</strong> Uma unemiphumela emibi yokungezwani nomzimba, sebenzisa u-RecoMed.",
+                f1_speech: "⚡ <strong>Imithetho Esheshayo Yokusebenzisa:</strong> Imithetho ye-PIL ye-Allergex® Non Drowsy Syrup.",
+                f2_speech: "👋 Uskani <strong>Allergex® Non Drowsy Syrup</strong> (S1). I-5 mL iyinikeza i-Loratadine 5 mg. Anti-allergy engalethi ubuthongo.",
+                f3_speech: "🥄 <strong>Umthamo Wakanye Ngosuku:</strong> Nika KANYE NGOSUKU. Abadala: 10 mL. Izingane (2–12 yrs, <30kg): 5 mL. Izingane (>30kg): 10 mL.",
+                f4_speech: "⏱️ <strong>Izimfanelo No-14 Days:</strong> UNGANIKI ezinganeni ezingaphansi kweminyaka eyi-2. UNGATHATHI ngaphezu kwezinsuku ezi-14.",
+                f5_speech: "🩺 <strong>Ufuna Udokotela Ngokushesha?</strong> Uma izimpawu zokungezwani nomzimba ziqhubeka emva kwezinsuku ezi-14, sebenzisa u-RecoMed.",
 
-                tab_f1: "⚡ Okufanele Kwenziwe Ndingenziwa",
-                tab_f2: "Ukusebenzisa",
-                tab_f3: "Umthamo Ovunyelwe",
-                tab_f4: "Isexwayiso Sobuthongo",
+                tab_f1: "⚡ Okufanele Kwenziwe",
+                tab_f2: "Isifinyezo (S1 Non-Drowsy)",
+                tab_f3: "Umthamo Wakanye Ngosuku",
+                tab_f4: "Umkhawulo Wezinsuku ezi-14",
                 tab_f5: "🏥 Thola Udokotela",
 
-                indicationsCard: `<div class="info-card-title">1. Usetshenziselwa Yini U-Allergex?</div><p style="font-size:12px; line-height:1.4;">Uphilisa ukusanhlanhlatha, amakhala agijimayo, nezilonda zesikhumba.</p>`,
-                dosageCard: `<div class="info-card-title">2. Imikhawulo Yeminyaka</div><p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>🚫 Umkhawulo:</strong> Akunconywa ezinganeni ezingaphansi kweminyaka eyi-6.</p>`,
-                drowsyCard: `<div class="info-card-title">4. Ukuphepha</div><p style="font-size:12px; line-height:1.4;">Ungasebenzisi uma unesifo se-glaucoma noma i-asthma enzima.</p>`,
+                overviewCard: `<div class="info-card-title">1. Usetshenziselwa Yini U-Allergex Non Drowsy Syrup?</div><p style="font-size:12px; line-height:1.4;">Ine-<strong>Loratadine 5 mg/5 mL</strong>. Imukha iphitshi (peach odour). Iwelapha i-allergic rhinitis, ukusanhlanhlatha nezilonda zesikhumba eziyisishiso.</p>`,
+                dosageCard: `<div class="info-card-title">3. Umthamo Ovunyelwe</div><p style="font-size:12px; line-height:1.4;">Thatha <strong>KANYE NGOSUKU</strong> nokudla noma ngaphandle kokudla.</p>`,
+                drowsyCard: `<div class="info-card-title">2. Umkhawulo Wosuku No-14 Days</div><p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>🚫 Akunconywa ezinganeni ezingaphansi kweminyaka eyi-2.</strong> Ungasebenzisi ngaphezu kwezinsuku ezi-14 ngaphandle kukadokotela.</p>`,
 
-                qa_sleep: "😴 Yebo, Allergex iletha ubuthongo obukhulu. Ungashayeli imoto.",
-                qa_under6: "🚫 Amaphilisi e-Allergex awanconywa ezinganeni ezingaphansi kweminyaka eyi-6.",
-                qa_pil: "📄 Ungavula iphepha solwazi lwe-SAHPRA ngokuchofoza inkinobho ebhokisini ngenhla!"
+                qa_sleep: "🌼 I-Allergex Non Drowsy Syrup ine-Loratadine engalethi ubuthongo ezingeni elijwayelekile.",
+                qa_under2: "🚫 I-Allergex Non Drowsy Syrup AKUNCONYWA ezinganeni ezingaphansi kweminyaka eyi-2.",
+                qa_pil: "📄 Ungavula iphepha solwazi lwe-SAHPRA lwe-Allergex Non Drowsy ngezansi!"
             },
             af: {
-                f1_speech: "⚡ <strong>Vinnige Moets en Moennies:</strong> Belangrike veiligheidsreëls uit die goedgekeurde voubiljet vir Allergex.",
-                f2_speech: "👋 Jy het <strong>Allergex® 4 mg Tablette</strong> geskandeer. Bevat Kloorfenamienmaleaat vir die behandeling van allergieë, hooikoors en insekbyte.",
-                f3_speech: "💊 <strong>Goedgekeurde Dosis:</strong> Volwassenes & Kinders 12+: 1 tablet elke 4 tot 6 uur. Kinders 6–12 jaar: Halwe tablet elke 4 tot 6 uur.",
-                f4_speech: "😴 <strong>Lomerigheid Waarskuwing:</strong> Allergex veroorsaak lomerigheid. Moenie bestuur of masjinerie hanteer nie.",
-                f5_speech: "🩺 <strong>Ernstige Allergie?</strong> As jy sukkel om asem te haal oof erger simptome het, bespreek 'n dokter via RecoMed.",
+                f1_speech: "⚡ <strong>Vinnige Moets en Moennies:</strong> Veiligheidsreëls vir Allergex® Non Drowsy Syrup.",
+                f2_speech: "👋 Jy het <strong>Allergex® Non Drowsy Syrup</strong> (S1) geskandeer. Bevat Loratadine 5 mg/5 mL. Nie-lomerige antihistamien met perske-geur.",
+                f3_speech: "🥄 <strong>Een keer per dag dosis:</strong> Neem EEN KEER PER DAG. Volwassenes: 10 mL. Kinders 2–12 jaar (<30kg): 5 mL. Kinders (>30kg): 10 mL.",
+                f4_speech: "⏱️ <strong>Beperkings:</strong> Moenie vir kinders onder 2 jaar gee nie. Moenie langer as 14 dae gebruik sonder 'n dokter nie.",
+                f5_speech: "🩺 <strong>Het jy 'n Dokter Nodig?</strong> As allergieë langer as 14 dae duur, bespreek 'n dokter via RecoMed.",
 
                 tab_f1: "⚡ Vinnige Moets & Moennies",
-                tab_f2: "Indikasies",
-                tab_f3: "Doseringsriglyne",
-                tab_f4: "Lomerigheid Waarskuwing",
+                tab_f2: "Oorsig (S1 Nie-Lomerig)",
+                tab_f3: "Een Keer Per Dag Dosis",
+                tab_f4: "14-Dae Beperking",
                 tab_f5: "🏥 Vind 'n Dokter",
 
-                indicationsCard: `<div class="info-card-title">1. Waarvoor word Allergex gebruik?</div><p style="font-size:12px; line-height:1.4;">Verlig allergiesimptome insluitend neusverstopping, jeukerige veluitslae en insekbyte.</p>`,
-                dosageCard: `<div class="info-card-title">2. Ouderdomsbeperkings</div><p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>🚫 Beperking:</strong> Gebruik by kinders onder 6 jaar word NIE aanbeveel nie.</p>`,
-                drowsyCard: `<div class="info-card-title">4. Veiligheidsmaatreëls</div><p style="font-size:12px; line-height:1.4;">Bevat laktoose. Moenie neem as jy aan gloukoom of erge asma ly nie.</p>`,
+                overviewCard: `<div class="info-card-title">1. Waarvoor word Allergex Non Drowsy Syrup gebruik?</div><p style="font-size:12px; line-height:1.4;">Bevat <strong>Loratadine 5 mg/5 mL</strong>. Verlig allergieë, neusverstopping en jeukerige uitslae sonder om lomerigheid te veroorsaak.</p>`,
+                dosageCard: `<div class="info-card-title">3. Hoe om dit te neem</div><p style="font-size:12px; line-height:1.4;">Neem <strong>EEN KEER PER DAG</strong> saam met of sonder kos.</p>`,
+                drowsyCard: `<div class="info-card-title">2. Veiligheid & Limiete</div><p style="font-size:12px; line-height:1.4; color:#b91c1c;"><strong>🚫 Nie vir kinders onder 2 jaar nie.</strong> Moenie langer as 14 dae gebruik sonder mediese advies nie.</p>`,
 
-                qa_sleep: "😴 Ja, Allergex veroorsaak lomerigheid. Moenie bestuur nie.",
-                qa_under6: "🚫 Allergex tablette word nie vir kinders onder 6 jaar aanbeveel nie.",
-                qa_pil: "📄 Jy kan die SAHPRA goedgekeurde pasiëntvoubiljet direk oopmaak met die knoppie hierbo!"
+                qa_sleep: "🌼 Allergex Non Drowsy Syrup bevat Loratadine, wat nie lomerigheid veroorsaak nie.",
+                qa_under2: "🚫 Allergex Non Drowsy Syrup word nie vir kinders onder 2 jaar aanbeveel nie.",
+                qa_pil: "📄 Klik hieronder om die amptelike SAHPRA goedgekeurde Allergex Non Drowsy voubiljet oop te maak!"
             }
         }
     };
 
     function renderDoseCalcHtml(lang) {
         const u = uiTranslations[lang] || uiTranslations.en;
-        const pilUrl = activeProductKey === 'PANADO' 
-            ? "https://www.adcock.com/Content/pdf/PIL-2025739-Panado-Strawberry_TG (1).pdf"
-            : "https://www.adcock.com/content/pdf/ALLERGEX-NON-DROWSY-SYRUP-360008-0008-1.3.2-PIL-Approved.pdf";
 
-        return `
-            <div class="info-card-title">2. Approved Age & Dosage Calculator</div>
-            <div class="dose-calc-box">
-                <select class="dose-select" id="doseWeightSelect" onchange="calculatePanadoDose()">
-                    <option value="">${u.dosePrompt}</option>
-                    <option value="infant">${u.doseOpt1}</option>
-                    <option value="child1">${u.doseOpt2}</option>
-                    <option value="child2">${u.doseOpt3}</option>
-                </select>
-                <div class="dose-result" id="doseResultText">${u.doseDefaultRes}</div>
-            </div>
-            <a class="pil-link-btn" href="${pilUrl}" target="_blank" rel="noopener">${u.pilLink}</a>
-        `;
+        if (activeProductKey === 'PANADO') {
+            return `
+                <div class="info-card-title">2. Approved Age & Dosage Calculator</div>
+                <div class="dose-calc-box">
+                    <select class="dose-select" id="doseWeightSelect" onchange="calculatePanadoDose()">
+                        <option value="">${u.dosePrompt}</option>
+                        <option value="infant">${u.doseOpt1}</option>
+                        <option value="child1">${u.doseOpt2}</option>
+                        <option value="child2">${u.doseOpt3}</option>
+                    </select>
+                    <div class="dose-result" id="doseResultText">${u.doseDefaultRes}</div>
+                </div>
+                <button class="pil-link-btn" onclick="openPilDocument('PANADO')">${u.pilLink}</button>
+            `;
+        } else {
+            return `
+                <div class="info-card-title">3. Approved Once-Daily Dosage Guide</div>
+                <div class="dose-calc-box">
+                    <select class="dose-select" id="doseWeightSelect" onchange="calculateAllergexDose()">
+                        <option value="">${u.allergexDosePrompt}</option>
+                        <option value="child_light">${u.allergexOpt1}</option>
+                        <option value="child_heavy">${u.allergexOpt2}</option>
+                        <option value="adult">${u.allergexOpt3}</option>
+                    </select>
+                    <div class="dose-result" id="doseResultText">${u.doseDefaultRes}</div>
+                </div>
+                <button class="pil-link-btn" onclick="openPilDocument('ALLERGEX')">${u.pilLink}</button>
+            `;
+        }
     }
 
     const productCatalogue = {
         PANADO: {
-            brandName: "Panado® Paediatric Syrup",
-            subtitle: "Adcock Ingram - Paracetamol 120mg/5ml",
+            brandName: "Panado® Paediatric Strawberry",
+            subtitle: "Adcock Ingram - Paracetamol 120mg/5ml (S0)",
             themeColor: "#00bcd4",
             themeGradient: "linear-gradient(135deg, #00d2ff 0%, #008a9a 100%)",
             capColor: "#00BCD4",
@@ -770,8 +823,8 @@
         },
 
         ALLERGEX: {
-            brandName: "Allergex® Tablets (4 mg)",
-            subtitle: "Adcock Ingram - Chlorphenamine Maleate",
+            brandName: "Allergex® Non Drowsy Syrup",
+            subtitle: "Adcock Ingram - Loratadine 5mg/5ml (S1)",
             themeColor: "#d97706",
             themeGradient: "linear-gradient(135deg, #f59e0b 0%, #b45309 100%)",
             capColor: "#f59e0b",
@@ -779,8 +832,8 @@
 
             caregiverFeatures: [
                 { id: "f1", speechKey: "f1_speech", isPoster: true },
-                { id: "f2", speechKey: "f2_speech", cardKey: "indicationsCard" },
-                { id: "f3", speechKey: "f3_speech", cardKey: "dosageCard" },
+                { id: "f2", speechKey: "f2_speech", cardKey: "overviewCard" },
+                { id: "f3", speechKey: "f3_speech", isDoseCalc: true },
                 { id: "f4", speechKey: "f4_speech", cardKey: "drowsyCard" },
                 { id: "f5", speechKey: "f5_speech", isRecomed: true }
             ],
@@ -799,7 +852,7 @@
 
             qa: [
                 { key: ["sleep", "drowsy", "ubuthongo", "lomerigheid"], resKey: "qa_sleep" },
-                { key: ["under 6", "toddler", "ingane", "kind"], resKey: "qa_under6" },
+                { key: ["under 2", "baby", "toddler", "ingane", "2 years"], resKey: "qa_under2" },
                 { key: ["pil", "leaflet", "pdf", "document", "iphepha", "voubiljet"], resKey: "qa_pil" }
             ]
         }
@@ -910,7 +963,6 @@
 
         const u = uiTranslations[selectedLang] || uiTranslations.en;
 
-        // Dynamic UI element translations
         document.getElementById('segCaregiver').innerText = u.caregiverBtn;
         document.getElementById('segChild').innerText = u.infoZoneBtn;
         document.getElementById('audioBtnText').innerText = u.listenMeddy;
@@ -1006,9 +1058,6 @@
         const featureList = currentSegment === 'caregiver' ? product.caregiverFeatures : product.childFeatures;
         const currentItem = featureList[activeFeatureIndex] || featureList[0];
         const u = uiTranslations[selectedLang] || uiTranslations.en;
-        const pilUrl = activeProductKey === 'PANADO' 
-            ? "https://www.adcock.com/Content/pdf/Panado_Paediatric_Syrup_Alcohol_Free_Grape_Flavour.pdf"
-            : "https://www.adcock.com/content/pdf/Allergex_Tablets_PI.pdf";
 
         let speechHtml = "";
 
@@ -1031,7 +1080,7 @@
             if (currentSegment === 'caregiver' && currentItem.cardKey) {
                 const langObj = translations[activeProductKey]?.[selectedLang] || translations[activeProductKey]['en'];
                 const cardContent = langObj[currentItem.cardKey] || translations[activeProductKey]['en'][currentItem.cardKey];
-                document.getElementById('infoCard').innerHTML = cardContent + `<a class="pil-link-btn" href="${pilUrl}" target="_blank" rel="noopener">${u.pilLink}</a>`;
+                document.getElementById('infoCard').innerHTML = cardContent + `<button class="pil-link-btn" onclick="openPilDocument('${activeProductKey}')">${u.pilLink}</button>`;
             } else {
                 document.getElementById('infoCard').innerHTML = currentItem.card;
             }
@@ -1044,12 +1093,26 @@
         const u = uiTranslations[selectedLang] || uiTranslations.en;
         
         const doseTable = {
-            "infant": " 2.5 mL to 5 mL (60 mg to 120 mg) ",
+            "infant": " 2,5 mL to 5 mL (60 mg to 120 mg) ",
             "child1": " 5 mL to 10 mL (120 mg to 240 mg) ",
             "child2": " 10 mL to 20 mL (240 mg to 480 mg) "
         };
 
         res.innerHTML = doseTable[val] ? `<strong>${u.doseResPrefix}</strong>${doseTable[val]}${u.doseResSuffix}` : u.doseDefaultRes;
+    }
+
+    function calculateAllergexDose() {
+        const val = document.getElementById('doseWeightSelect').value;
+        const res = document.getElementById('doseResultText');
+        const u = uiTranslations[selectedLang] || uiTranslations.en;
+
+        const doseTable = {
+            "child_light": " 5 mL ONCE DAILY ",
+            "child_heavy": " 10 mL ONCE DAILY ",
+            "adult": " 10 mL ONCE DAILY "
+        };
+
+        res.innerHTML = doseTable[val] ? `<strong>Approved Dose:</strong> Give${doseTable[val]} (Loratadine 5 mg/5 mL). Do not take for longer than 14 days without consulting a doctor.` : u.doseDefaultRes;
     }
 
     function updateQrTargetUrl() {
