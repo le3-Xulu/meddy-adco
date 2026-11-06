@@ -191,34 +191,45 @@
             letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 6px;
         }
 
+        /* VISUAL INSTRUCTION DRAWINGS / ICON CARDS */
         .poster-container {
             width: 100%; background: #ffffff; border: 2px solid #e2e8f0;
-            border-radius: 16px; padding: 12px; margin-top: 6px;
+            border-radius: 18px; padding: 14px; margin-top: 6px;
         }
         .poster-header {
             text-align: center; font-size: 12px; font-weight: 800; color: #0f172a;
             text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 8px;
-            margin-bottom: 10px; border-bottom: 2px dashed #cbd5e1;
+            margin-bottom: 12px; border-bottom: 2px dashed #cbd5e1;
         }
-        .poster-grid {
-            display: grid; grid-template-columns: 1fr 2px 1fr; gap: 8px; align-items: start;
+        .visual-section-title {
+            font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px;
+            margin-bottom: 10px; padding: 4px 8px; border-radius: 8px;
         }
-        .poster-divider {
-            background: #cbd5e1; height: 100%; width: 2px; border-radius: 2px;
+        .title-dos-bg { background: #dcfce7; color: #15803d; }
+        .title-donts-bg { background: #fee2e2; color: #b91c1c; }
+
+        .visual-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;
         }
-        .poster-column-title {
-            font-size: 12px; font-weight: 800; display: flex; align-items: center;
-            gap: 4px; margin-bottom: 8px; justify-content: center;
+        .visual-card {
+            background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px;
+            padding: 10px; text-align: center; display: flex; flex-direction: column;
+            align-items: center; justify-content: flex-start; gap: 6px;
         }
-        .title-dos { color: #16a34a; }
-        .title-donts { color: #dc2626; }
-        .poster-list { list-style: none; padding: 0; margin: 0; }
-        .poster-item {
-            font-size: 10.5px; line-height: 1.35; margin-bottom: 8px; color: #334155;
-            display: flex; gap: 5px; align-items: flex-start;
+        .card-do { border-top: 3px solid #16a34a; }
+        .card-dont { border-top: 3px solid #dc2626; }
+
+        .visual-icon-badge {
+            width: 38px; height: 38px; border-radius: 12px; display: flex;
+            align-items: center; justify-content: center; font-size: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
         }
-        .bullet-do { color: #16a34a; font-weight: 800; }
-        .bullet-dont { color: #dc2626; font-weight: 800; }
+        .icon-badge-do { background: #f0fdf4; border: 1px solid #bbf7d0; }
+        .icon-badge-dont { background: #fef2f2; border: 1px solid #fecaca; }
+
+        .visual-card-text {
+            font-size: 10.5px; font-weight: 700; color: #1e293b; line-height: 1.3;
+        }
 
         .pil-link-btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 6px;
@@ -499,11 +510,9 @@
     };
 
     function openPilDocument(productKey) {
-        // Direct exact filenames from attached PIL documents
         const localPanado = encodeURIComponent("PIL-2025739-Panado-Strawberry_TG (1).pdf");
         const localAllergex = encodeURIComponent("ALLERGEX-NON-DROWSY-SYRUP-360008-0008-1.3.2-PIL-Approved.pdf");
         
-        // Web fallbacks for Panado Strawberry & Allergex Non Drowsy Syrup
         const webPanado = "https://www.adcock.com/Content/pdf/Panado_Paediatric_Syrup_Alcohol_Free_Strawberry_Flavour.pdf";
         const webAllergex = "https://www.adcock.com/Content/pdf/Allergex_Non_Drowsy_Syrup.pdf";
 
@@ -533,64 +542,131 @@
         `;
     }
 
-    const posterData = {
+    // VISUAL DRAWINGS & MINI-ILLUSTRATIONS FOR DO'S & DON'TS
+    const visualPosterData = {
         PANADO: {
             en: {
-                header: "Panado® Paediatric Strawberry Administration Poster",
-                dos: ["Shake the bottle before use.", "Measure exact dosage (2,5 mL to 20 mL based on age).", "Repeat every 4 hours if needed (max 4 doses in 24 hours).", "Keep bottle well closed and protected from light."],
-                donts: ["Do NOT exceed recommended dose or give longer than 5 days without a GP.", "Do NOT give if child has serious liver function problems.", "Do NOT combine with other paracetamol products (risk of severe liver damage).", "Do NOT refrigerate, freeze, or store in a bathroom."]
+                header: "Panado® Paediatric Strawberry Safety Poster",
+                dos: [
+                    { icon: "🧪", text: "Shake the bottle thoroughly before measuring dose." },
+                    { icon: "🥄", text: "Measure exact dose (2,5 mL to 20 mL) using metric syringe." },
+                    { icon: "⏱️", text: "Wait at least 4 hours between each dose." },
+                    { icon: "💧", text: "Keep child hydrated with plenty of water and fluids." }
+                ],
+                donts: [
+                    { icon: "🚫", text: "Do NOT give more than 4 doses in 24 hours." },
+                    { icon: "🥄❌", text: "Do NOT use household tea or table spoons." },
+                    { icon: "💊⚠️", text: "Do NOT combine with other Paracetamol products." },
+                    { icon: "🩺", text: "Do NOT give for longer than 5 days without a GP." }
+                ]
             },
             zu: {
-                header: "Isimemezelo Sokuphatha I-Panado® Strawberry",
-                dos: ["Gcolisa ibhotela ngaphambi kokusebenzisa.", "Linganisa umthamo ngqo (2,5 mL kuya ku-20 mL ngokweminyaka).", "Phinda ngemuva kwamahora ayi-4 uma kudingeka (imithamo e-4 max ngosuku).", "Gcina ibhotela livaliwe kakhulu kude nokukhanya."],
-                donts: ["UNGANIKI ngaphezu kwezinsuku ezi-5 ngaphandle kukadokotela.", "UNGANIKI uma ingane inezinkinga ezinkulu zesibindi.", "UNGAHLANGANISI neminye imikhiqizo ene-paracetamol (ingozi esibindini).", "UNGAFIKA efrijini noma ugbcine endlini yokugezela."]
+                header: "Isimemezelo Se-Panado® Paediatric Strawberry",
+                dos: [
+                    { icon: "🧪", text: "Gcolisa ibhotela kahle ngaphambi kokulinganisa." },
+                    { icon: "🥄", text: "Linganisa umthamo oqondile ngesiringi yomlomo." },
+                    { icon: "⏱️", text: "Linda amahora amane phakathi kwemithamo." },
+                    { icon: "💧", text: "Gcina ingane inamanzi anele emzimbeni." }
+                ],
+                donts: [
+                    { icon: "🚫", text: "UNGANIKI imithamo engaphezu kwemine ngosuku." },
+                    { icon: "🥄❌", text: "UNGASEBENZISI izipuni zasekhishini." },
+                    { icon: "💊⚠️", text: "UNGAHLANGANISI neminye imikhiqizo ene-paracetamol." },
+                    { icon: "🩺", text: "UNGANIKI ngaphezu kwezinsuku ezi-5 ngaphandle kukadokotela." }
+                ]
             },
             af: {
-                header: "Panado® Paediatric Strawberry Toedieningsplakkaat",
-                dos: ["Skud die bottel voor gebruik.", "Meet presiese dosis (2,5 mL tot 20 mL gebaseer op ouderdom).", "Herhaal elke 4 uur indien nodig (maks 4 dosisse per 24 uur).", "Hou bottel goed toegemaak en beskerm teen lig."],
-                donts: ["Moenie meer as 5 dae gee sonder 'n dokter nie.", "Moenie gee as die kind ernstige lewerprobleme het nie.", "Moenie kombineer met ander parasetamol produkte nie.", "Moenie verkoel, vries of in 'n badkamer bêre nie."]
+                header: "Panado® Paediatric Strawberry Veiligheidsplakkaat",
+                dos: [
+                    { icon: "🧪", text: "Skud die bottel deeglik voor meting." },
+                    { icon: "🥄", text: "Meet presiese dosis met 'n metriese spuit." },
+                    { icon: "⏱️", text: "Wag ten minste 4 uur tussen dosisse." },
+                    { icon: "💧", text: "Hou die kind goed gehidreer met vloeistowwe." }
+                ],
+                donts: [
+                    { icon: "🚫", text: "Moenie meer as 4 dosisse per 24 uur gee nie." },
+                    { icon: "🥄❌", text: "Moenie huishoudelike teelepels gebruik nie." },
+                    { icon: "💊⚠️", text: "Moenie kombineer met ander parasetamol produkte nie." },
+                    { icon: "🩺", text: "Moenie langer as 5 dae gee sonder 'n dokter nie." }
+                ]
             }
         },
         ALLERGEX: {
             en: {
-                header: "Allergex® Non Drowsy Syrup Administration Poster",
-                dos: ["Take once daily for allergic rhinitis or chronic urticaria (hives).", "May be taken with or without food.", "Store below 25°C protected from light.", "Consult a GP if symptoms worsen or do not improve after 14 days."],
-                donts: ["Do NOT give to children under 2 years of age.", "Do NOT take for longer than 14 days without medical advice.", "Do NOT give if child is allergic to Loratadine or sodium benzoate.", "Do NOT double up on missed doses."]
+                header: "Allergex® Non Drowsy Syrup Safety Poster",
+                dos: [
+                    { icon: "📅", text: "Take strictly ONCE DAILY for allergy relief." },
+                    { icon: "🍲", text: "May be taken with or without food." },
+                    { icon: "❄️", text: "Store below 25°C protected from direct light." },
+                    { icon: "📄", text: "Follow age/weight limits (2+ years of age)." }
+                ],
+                donts: [
+                    { icon: "🚼❌", text: "Do NOT give to toddlers under 2 years of age." },
+                    { icon: "📆❌", text: "Do NOT take for longer than 14 days without a GP." },
+                    { icon: "⚠️", text: "Do NOT give if allergic to Loratadine." },
+                    { icon: "💊❌", text: "Do NOT double up on missed doses." }
+                ]
             },
             zu: {
-                header: "Isimemezelo Sokuphatha I-Allergex® Non Drowsy",
-                dos: ["Thatha kanye ngosuku kwezifo zokungezwani nomzimba (allergies).", "Kungathathwa nokudla noma ngaphandle kokudla.", "Gcina ngaphansi kuka-25°C ebumnyameni.", "Bonana nadokotela uma izimpawu ziqhubeka ngaphezu kwezinsuku ezi-14."],
-                donts: ["UNGANIKI ezinganeni ezingaphansi kweminyaka eyi-2.", "UNGATHATHI ngaphezu kwezinsuku ezi-14 ngaphandle kukadokotela.", "UNGANIKI uma ingane inemiphumela emibi ku-Loratadine.", "UNGAHLELISI imithamo eyi-double uma ukhohlwe umthamo."]
+                header: "Isimemezelo Se-Allergex® Non Drowsy Syrup",
+                dos: [
+                    { icon: "📅", text: "Thatha KANYE NGOSUKU kuphela." },
+                    { icon: "🍲", text: "Kungathathwa nokudla noma ngaphandle kokudla." },
+                    { icon: "❄️", text: "Gcina ngaphansi kuka-25°C ebumnyameni." },
+                    { icon: "📄", text: "Olanela iminyaka yobudala (2+ iminyaka)." }
+                ],
+                donts: [
+                    { icon: "🚼❌", text: "UNGANIKI ezinganeni ezingaphansi kweminyaka eyi-2." },
+                    { icon: "📆❌", text: "UNGATHATHI ngaphezu kwezinsuku ezi-14." },
+                    { icon: "⚠️", text: "UNGANIKI uma ezozwani ne-Loratadine." },
+                    { icon: "💊❌", text: "UNGAHLELISI imithamo eyi-double." }
+                ]
             },
             af: {
-                header: "Allergex® Non Drowsy Syrup Toedieningsplakkaat",
-                dos: ["Neem een keer per dag vir allergieë of korrelagtige uitslag.", "Kan saam met of sonder kos geneem word.", "Bêre onder 25°C beskerm teen lig.", "Raadpleeg 'n dokter as simptome nie na 14 dae verbeter nie."],
-                donts: ["Moenie vir kinders onder 2 jaar gee nie.", "Moenie langer as 14 dae neem sonder mediese advies nie.", "Moenie gee as die kind allergies is vir Loratadine nie.", "Moenie 'n dubbele dosis neem vir 'n vergete dosis nie."]
+                header: "Allergex® Non Drowsy Syrup Veiligheidsplakkaat",
+                dos: [
+                    { icon: "📅", text: "Neem streng EEN KEER PER DAG." },
+                    { icon: "🍲", text: "Kan saam met of sonder kos geneem word." },
+                    { icon: "❄️", text: "Bêre onder 25°C beskerm teen lig." },
+                    { icon: "📄", text: "Voldoen aan ouderdomsbeperkings (2+ jaar)." }
+                ],
+                donts: [
+                    { icon: "🚼❌", text: "Moenie vir kinders onder 2 jaar gee nie." },
+                    { icon: "📆❌", text: "Moenie langer as 14 dae neem sonder dokter nie." },
+                    { icon: "⚠️", text: "Moenie gee as allergies vir Loratadine nie." },
+                    { icon: "💊❌", text: "Moenie 'n dubbele dosis neem vir 'n vergete dosis nie." }
+                ]
             }
         }
     };
 
     function renderPosterHtml(productKey, lang) {
-        const p = posterData[productKey][lang] || posterData[productKey]['en'];
+        const p = visualPosterData[productKey][lang] || visualPosterData[productKey]['en'];
         const u = uiTranslations[lang] || uiTranslations.en;
 
-        const dosList = p.dos.map(d => `<li class="poster-item"><span class="bullet-do">✓</span> ${d}</li>`).join('');
-        const dontsList = p.donts.map(d => `<li class="poster-item"><span class="bullet-dont">✕</span> ${d}</li>`).join('');
+        const dosCards = p.dos.map(d => `
+            <div class="visual-card card-do">
+                <div class="visual-icon-badge icon-badge-do">${d.icon}</div>
+                <div class="visual-card-text">${d.text}</div>
+            </div>
+        `).join('');
+
+        const dontsCards = p.donts.map(d => `
+            <div class="visual-card card-dont">
+                <div class="visual-icon-badge icon-badge-dont">${d.icon}</div>
+                <div class="visual-card-text">${d.text}</div>
+            </div>
+        `).join('');
 
         return `
             <div class="poster-container">
                 <div class="poster-header">${p.header}</div>
-                <div class="poster-grid">
-                    <div>
-                        <div class="poster-column-title title-dos"><span>✔</span> DO'S</div>
-                        <ul class="poster-list">${dosList}</ul>
-                    </div>
-                    <div class="poster-divider"></div>
-                    <div>
-                        <div class="poster-column-title title-donts"><span>✖</span> DON'TS</div>
-                        <ul class="poster-list">${dontsList}</ul>
-                    </div>
-                </div>
+                
+                <div class="visual-section-title title-dos-bg"><span>✔</span> DO'S (INSTRUCTIONS)</div>
+                <div class="visual-grid">${dosCards}</div>
+
+                <div class="visual-section-title title-donts-bg"><span>✖</span> DON'TS (WARNINGS)</div>
+                <div class="visual-grid">${dontsCards}</div>
             </div>
             <button class="pil-link-btn" onclick="openPilDocument('${productKey}')">${u.pilLink}</button>
         `;
@@ -599,14 +675,12 @@
     const translations = {
         PANADO: {
             en: {
-                f1_speech: "⚡ <strong>Quick Administration Do's & Don'ts:</strong> Here are PIL-verified safety rules for Panado® Paediatric Syrup Strawberry.",
                 f2_speech: "👋 You scanned <strong>Panado® Paediatric Syrup Strawberry</strong> (S0). Each 5 mL contains Paracetamol 120 mg. Sugar-free and Tartrazine-free.",
                 f3_speech: "🥄 <strong>Dosage Calculator:</strong> Dosage depends on age bracket (3 mos to 12 yrs). Repeat every 4 hours as needed (Max 4 doses in 24 hrs).",
                 f4_speech: "⏱️ <strong>Overdose & Duration Warning:</strong> Contains Paracetamol which may be fatal in overdose. Do NOT give for longer than 5 days without consulting a doctor.",
                 f5_speech: "❄️ <strong>Storage Instructions:</strong> Store at or below 25°C protected from light in well-closed container. Do not refrigerate or freeze. Keep out of reach of children.",
                 f6_speech: "🩺 <strong>Need a Doctor?</strong> If pain/fever symptoms worsen or do not improve after 5 days, use RecoMed to consult a GP.",
 
-                tab_f1: "⚡ Quick Do's & Don'ts",
                 tab_f2: "Overview (S0)",
                 tab_f3: "Dosage Calculator",
                 tab_f4: "Warnings & Duration",
@@ -625,14 +699,12 @@
                 qa_pil: "📄 Click below to open the official SAHPRA approved Panado Paediatric Syrup Strawberry Patient Information Leaflet!"
             },
             zu: {
-                f1_speech: "⚡ <strong>Imithetho Esheshayo Engagwenywa:</strong> Nansi imithetho eqinisekisiwe ye-PIL ye-Panado® Paediatric Syrup Strawberry.",
                 f2_speech: "👋 Uskani <strong>Panado® Paediatric Syrup Strawberry</strong> (S0). Incxenye ngayinye ye-5 mL inetshukela ene-Paracetamol 120 mg. Aina shukela ne-Tartrazine.",
                 f3_speech: "🥄 <strong>Umhlahlandlela Womthamo:</strong> Umthamo unqunywa ngokobudala. Phinda ngemuva kwamahora ayi-4 (Izinga eliphakeme imithamo e-4 emahoreni angama-24).",
                 f4_speech: "⏱️ <strong>Isexwayiso Se-Overdose:</strong> Ine-Paracetamol engaba yingozi kakhulu uma uthatha eningi. Unganiki ngaphezu kwezinsuku ezi-5 ngaphandle kukadokotela.",
                 f5_speech: "❄️ <strong>Ukugcina Umuthi:</strong> Gcina ngaphansi kuka-25°C ebumnyameni. Ungafiki efrijini. Gcina kude nezingane.",
                 f6_speech: "🩺 <strong>Udinga Udokotela?</strong> Uma izimpawu ziyaqhubeka emuva kwezinsuku ezi-5, sebenzisa u-RecoMed ukuthola udokotela.",
 
-                tab_f1: "⚡ Okufanele Kwenziwe",
                 tab_f2: "Isifinyezo (S0)",
                 tab_f3: "I-Calculator Yomthamo",
                 tab_f4: "Izixwayiso No-5 Days",
@@ -648,14 +720,12 @@
                 qa_pil: "📄 Ungavula iphepha solwazi lwe-SAHPRA lwe-Panado Strawberry ngezansi!"
             },
             af: {
-                f1_speech: "⚡ <strong>Vinnige Moets en Moennies:</strong> Goedgekeurde reëls vir Panado® Paediatric Syrup Strawberry uit die voubiljet.",
                 f2_speech: "👋 Jy het <strong>Panado® Paediatric Syrup Strawberry</strong> (S0) geskandeer. Bevat Parasetamol 120 mg/5 mL. Suikervry en Tartrasienvry.",
                 f3_speech: "🥄 <strong>Doserings rekenaar:</strong> Dosis is gebaseer op ouderdom (3 maande tot 12 jaar). Herhaal elke 4 uur (Maks 4 dosisse per 24 uur).",
                 f4_speech: "⏱️ <strong>Waarskuwing:</strong> Bevat Parasetamol wat dodelik kan wees in oordosis. Moenie langer as 5 dae gee sonder 'n dokter nie.",
                 f5_speech: "❄️ <strong>Berging:</strong> Bêre by of onder 25°C beskerm teen lig. Moenie verkoel of vries nie. Hou buite bereik van kinders.",
                 f6_speech: "🩺 <strong>Het jy 'n Dokter Nodig?</strong> As simptome voortduur na 5 dae, gebruik RecoMed om 'n dokter te vind.",
 
-                tab_f1: "⚡ Vinnige Moets & Moennies",
                 tab_f2: "Oorsig (S0)",
                 tab_f3: "Doseringsrekenaar",
                 tab_f4: "Waarskuwings & Limiete",
@@ -674,13 +744,11 @@
 
         ALLERGEX: {
             en: {
-                f1_speech: "⚡ <strong>Quick Administration Do's & Don'ts:</strong> PIL safety rules for Allergex® Non Drowsy Syrup.",
                 f2_speech: "👋 You scanned <strong>Allergex® Non Drowsy Syrup</strong> (S1). Active substance per 5 mL is Loratadine 5 mg. Non-drowsy antihistamine with peach odour.",
                 f3_speech: "🥄 <strong>Dosage Guide:</strong> Given ONCE DAILY. Adults & Kids 12+: 10 mL once daily. Kids 2–12 yrs (<30 kg): 5 mL once daily. Kids 2–12 yrs (>30 kg): 10 mL once daily.",
                 f4_speech: "⏱️ <strong>Duration & Precautions:</strong> Do NOT give to children under 2 years. Do NOT take for longer than 14 days without a doctor's advice.",
                 f5_speech: "🩺 <strong>Need Clinical Advice?</strong> If allergy symptoms persist beyond 14 days, consult a healthcare provider via RecoMed.",
 
-                tab_f1: "⚡ Quick Do's & Don'ts",
                 tab_f2: "Overview (S1 Non-Drowsy)",
                 tab_f3: "Once-Daily Dosage",
                 tab_f4: "14-Day Limit & Precautions",
@@ -698,13 +766,11 @@
                 qa_pil: "📄 Click below to open the official SAHPRA approved Allergex Non Drowsy Syrup Patient Information Leaflet!"
             },
             zu: {
-                f1_speech: "⚡ <strong>Imithetho Esheshayo Yokusebenzisa:</strong> Imithetho ye-PIL ye-Allergex® Non Drowsy Syrup.",
                 f2_speech: "👋 Uskani <strong>Allergex® Non Drowsy Syrup</strong> (S1). I-5 mL iyinikeza i-Loratadine 5 mg. Anti-allergy engalethi ubuthongo.",
                 f3_speech: "🥄 <strong>Umthamo Wakanye Ngosuku:</strong> Nika KANYE NGOSUKU. Abadala: 10 mL. Izingane (2–12 yrs, <30kg): 5 mL. Izingane (>30kg): 10 mL.",
                 f4_speech: "⏱️ <strong>Izimfanelo No-14 Days:</strong> UNGANIKI ezinganeni ezingaphansi kweminyaka eyi-2. UNGATHATHI ngaphezu kwezinsuku ezi-14.",
                 f5_speech: "🩺 <strong>Ufuna Udokotela Ngokushesha?</strong> Uma izimpawu zokungezwani nomzimba ziqhubeka emva kwezinsuku ezi-14, sebenzisa u-RecoMed.",
 
-                tab_f1: "⚡ Okufanele Kwenziwe",
                 tab_f2: "Isifinyezo (S1 Non-Drowsy)",
                 tab_f3: "Umthamo Wakanye Ngosuku",
                 tab_f4: "Umkhawulo Wezinsuku ezi-14",
@@ -719,13 +785,11 @@
                 qa_pil: "📄 Ungavula iphepha solwazi lwe-SAHPRA lwe-Allergex Non Drowsy ngezansi!"
             },
             af: {
-                f1_speech: "⚡ <strong>Vinnige Moets en Moennies:</strong> Veiligheidsreëls vir Allergex® Non Drowsy Syrup.",
                 f2_speech: "👋 Jy het <strong>Allergex® Non Drowsy Syrup</strong> (S1) geskandeer. Bevat Loratadine 5 mg/5 mL. Nie-lomerige antihistamien met perske-geur.",
                 f3_speech: "🥄 <strong>Een keer per dag dosis:</strong> Neem EEN KEER PER DAG. Volwassenes: 10 mL. Kinders 2–12 jaar (<30kg): 5 mL. Kinders (>30kg): 10 mL.",
                 f4_speech: "⏱️ <strong>Beperkings:</strong> Moenie vir kinders onder 2 jaar gee nie. Moenie langer as 14 dae gebruik sonder 'n dokter nie.",
                 f5_speech: "🩺 <strong>Het jy 'n Dokter Nodig?</strong> As allergieë langer as 14 dae duur, bespreek 'n dokter via RecoMed.",
 
-                tab_f1: "⚡ Vinnige Moets & Moennies",
                 tab_f2: "Oorsig (S1 Nie-Lomerig)",
                 tab_f3: "Een Keer Per Dag Dosis",
                 tab_f4: "14-Dae Beperking",
@@ -786,7 +850,6 @@
             bandColor: "#008A9A",
             
             caregiverFeatures: [
-                { id: "f1", speechKey: "f1_speech", isPoster: true },
                 { id: "f2", speechKey: "f2_speech", cardKey: "overviewCard" },
                 { id: "f3", speechKey: "f3_speech", isDoseCalc: true },
                 { id: "f4", speechKey: "f4_speech", cardKey: "warningCard" },
@@ -795,6 +858,12 @@
             ],
 
             childFeatures: [
+                { 
+                    id: "f1", 
+                    title: "⚡ Visual Do's & Don'ts", 
+                    speechKey: "f1_speech", 
+                    isPoster: true 
+                },
                 {
                     title: "🎥 How To Take Panado Paediatric Syrup",
                     speech: "🌟 Hi there! Watch this fun video to see how tiny helper superheroes inside medicine fight off fever to make you feel better!",
@@ -803,8 +872,7 @@
                            <div class="video-container">
                                <iframe src="https://www.youtube-nocookie.com/embed/dbl1OrVXeeQ?playsinline=1&rel=0" title="How Medicine Works" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen playsinline></iframe>
                            </div>`
-                },
-            
+                }
             ],
 
             qa: [
@@ -823,7 +891,6 @@
             bandColor: "#b45309",
 
             caregiverFeatures: [
-                { id: "f1", speechKey: "f1_speech", isPoster: true },
                 { id: "f2", speechKey: "f2_speech", cardKey: "overviewCard" },
                 { id: "f3", speechKey: "f3_speech", isDoseCalc: true },
                 { id: "f4", speechKey: "f4_speech", cardKey: "drowsyCard" },
@@ -831,6 +898,12 @@
             ],
 
             childFeatures: [
+                { 
+                    id: "f1", 
+                    title: "⚡ Visual Do's & Don'ts", 
+                    speechKey: "f1_speech", 
+                    isPoster: true 
+                },
                 {
                     title: "🎥 How To Administer Allergex?",
                     speech: "🌼 Need quick a demonstration on how to take Allergex? Watch this cartoon video to know how!",
@@ -1026,7 +1099,12 @@
 
         const navContainer = document.getElementById('navigationTabs');
         navContainer.innerHTML = featureList.map((item, idx) => {
-            const titleText = currentSegment === 'caregiver' ? (langObj[`tab_${item.id}`] || item.id) : item.title;
+            let titleText = "";
+            if (currentSegment === 'caregiver') {
+                titleText = langObj[`tab_${item.id}`] || item.id;
+            } else {
+                titleText = item.id === 'f1' ? (langObj['tab_f1'] || "⚡ Visual Do's & Don'ts") : item.title;
+            }
             return `
                 <button class="feature-nav-btn ${item.isRecomed ? 'recomed-tab' : ''} ${idx === activeFeatureIndex ? 'active' : ''}" onclick="selectFeature(${idx})">
                     ${titleText}
@@ -1053,7 +1131,7 @@
 
         let speechHtml = "";
 
-        if (currentSegment === 'caregiver' && currentItem.speechKey) {
+        if (currentItem.speechKey) {
             const langObj = translations[activeProductKey]?.[selectedLang] || translations[activeProductKey]['en'];
             speechHtml = langObj[currentItem.speechKey] || translations[activeProductKey]['en'][currentItem.speechKey];
         } else {
